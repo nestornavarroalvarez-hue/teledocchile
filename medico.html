@@ -23,18 +23,18 @@
 
         .doctor-badge { background: #E6F8F3; color: #007A5C; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem; border: 1px solid #B2F2E2; }
 
-        .console-container { display: grid; grid-template-columns: 300px 1fr; height: calc(100vh - 70px); background: #F1F5F9; }
+        .console-container { display: grid; grid-template-columns: 320px 1fr; height: calc(100vh - 70px); background: #F1F5F9; }
 
         .sidebar-agenda { background: #FFFFFF; border-right: 1px solid #E2E8F0; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
         .sidebar-header { padding: 1.25rem; border-bottom: 1px solid #E2E8F0; }
-        .sidebar-header h3 { color: var(--color-principal); font-size: 1rem; font-weight: 700; }
+        .sidebar-header h3 { color: var(--color-principal); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .patient-list { display: flex; flex-direction: column; }
-        .patient-item { padding: 1rem 1.25rem; border-bottom: 1px solid #F1F5F9; cursor: pointer; transition: background 0.2s ease; display: flex; flex-direction: column; gap: 0.25rem; }
+        .patient-item { padding: 1rem 1.25rem; border-bottom: 1px solid #F1F5F9; cursor: pointer; transition: background 0.2s ease; display: flex; flex-direction: column; gap: 0.2rem; }
         .patient-item:hover { background: #F8FAFC; }
         .patient-item.active { background: #E6F8F3; border-left: 4px solid var(--color-secundario); }
 
-        .patient-time { font-size: 0.75rem; font-weight: 700; color: var(--color-secundario); text-transform: uppercase; }
+        .patient-date-time { font-size: 0.72rem; font-weight: 700; color: var(--color-secundario); text-transform: uppercase; display: flex; gap: 0.4rem; align-items: center; }
         .patient-name { font-size: 0.95rem; font-weight: 700; color: var(--color-principal); }
         .patient-reason { font-size: 0.8rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -86,14 +86,14 @@
 
     <div class="console-container">
         
-        <!-- AGENDA DINÁMICA LOCAL -->
+        <!-- AGENDA DINÁMICA LOCAL CORREGIDA -->
         <aside class="sidebar-agenda">
             <div>
                 <div class="sidebar-header">
-                    <h3>📅 Pacientes en Espera</h3>
+                    <h3>📅 Horas Reservadas</h3>
                 </div>
                 <div class="patient-list" id="patientListContainer">
-                    <!-- Las reservas hechas en index.html aparecerán aquí automáticamente -->
+                    <!-- Las reservas se cargarán aquí con su fecha y hora exacta -->
                 </div>
             </div>
 
@@ -124,7 +124,7 @@
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>1. Videoconsulta en Pantalla</span>
-                    <span id="activePatientTag" style="font-size: 0.75rem; color: #007A5C; background: #E6F8F3; padding: 0.2rem 0.5rem; border-radius: 12px;">Seleccione un paciente</span>
+                    <span id="activePatientTag" style="font-size: 0.75rem; color: #007A5C; background: #E6F8F3; padding: 0.2rem 0.5rem; border-radius: 12px;">Seleccione una hora</span>
                 </div>
                 
                 <div class="video-box" id="videoContainer">
@@ -142,6 +142,7 @@
                 </div>
 
                 <div class="patient-info-box">
+                    <span id="infoDate"><strong>Fecha Cita:</strong> --</span>
                     <span id="infoRut"><strong>RUT:</strong> --</span>
                     <span id="infoReason"><strong>Motivo:</strong> --</span>
                 </div>
@@ -205,16 +206,14 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Cargar citas desde el almacenamiento local compartido del navegador
+        // Cargar citas desde el almacenamiento local y ordenarlas por fecha/hora
         function loadAppointments() {
             const saved = localStorage.getItem('teledoc_appointments');
             if (saved) {
                 const allAppointments = JSON.parse(saved);
-                // Filtrar solo las de la Dra. Jennie
                 patientsData = allAppointments.filter(app => app.doctorKey === 'jennie');
             }
 
-            // Si no hay ninguna cita registrada aún, colocamos una de prueba por defecto
             if (patientsData.length === 0) {
                 patientsData = [
                     {
@@ -240,7 +239,7 @@
             const container = document.getElementById('patientListContainer');
             container.innerHTML = patientsData.map((p, idx) => `
                 <div class="patient-item ${idx === currentPatientIndex ? 'active' : ''}" onclick="loadPatient(${idx})">
-                    <span class="patient-time">${p.startTime} - ${p.endTime} hrs</span>
+                    <span class="patient-date-time">📅 ${p.date} • ⏰ ${p.startTime}</span>
                     <span class="patient-name">${p.patientName}</span>
                     <span class="patient-reason">${p.patientReason}</span>
                 </div>
@@ -257,6 +256,7 @@
             document.getElementById('activePatientTag').innerText = `Atendiendo a: ${p.patientName}`;
             document.getElementById('startTimeDisplay').innerText = p.startTime;
             document.getElementById('endTimeDisplay').innerText = p.endTime;
+            document.getElementById('infoDate').innerHTML = `<strong>Fecha Cita:</strong> ${p.date} (${p.startTime} - ${p.endTime} hrs)`;
             document.getElementById('infoRut').innerHTML = `<strong>RUT:</strong> ${p.patientRut}`;
             document.getElementById('infoReason').innerHTML = `<strong>Motivo:</strong> ${p.patientReason}`;
             document.getElementById('examName').innerText = p.exam || "Ninguno";
