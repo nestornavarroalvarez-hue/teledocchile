@@ -651,6 +651,7 @@
 </head>
 <body>
 
+    <!-- Barra de Navegación -->
     <header class="header">
         <a href="#" class="logo">TeleDoc<span>Chile</span></a>
         <nav>
@@ -664,6 +665,7 @@
         <a href="https://wa.me/56900000000?text=Hola.%20Deseo%20agendar%20una%20teleconsulta%20en%20TeleDocChile." target="_blank" class="btn-reservar-header">Reservar Teleconsulta</a>
     </header>
 
+    <!-- Sección Principal (Hero) -->
     <section class="hero">
         <div class="hero-content">
             <span class="hero-tagline">Medicina Online • Atención Cercana y Accesible</span>
@@ -684,15 +686,18 @@
         </div>
     </section>
 
+    <!-- Sello de Confianza / Convenios -->
     <div class="trust-banner">
         <h3>🛡️ Medicina Digna, Clara y al Alcance de Todos</h3>
         <p>Entregamos boletas de honorarios médicas oficiales para que puedas presentar en tu Isapre o seguro. Precios justos y transparentes para apoyar el presupuesto de tu hogar.</p>
     </div>
 
+    <!-- Directorio de Profesionales (Dra. Jennie Guzmán y Dra. Ruth Muñoz) -->
     <div id="especialistas" class="section-container">
         <h2 class="section-title">Elige a tu Profesional y Reserva</h2>
         <div class="doctors-grid">
             
+            <!-- Médico 1: Dra. Jennie Guzmán -->
             <div class="doctor-card">
                 <div class="doctor-header">
                     <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=300&auto=format&fit=crop" alt="Dra. Jennie Guzmán" class="doctor-avatar">
@@ -722,31 +727,32 @@
                 </div>
             </div>
 
+            <!-- Médico 2: Dra. Ruth Muñoz (Pediatra) -->
             <div class="doctor-card">
                 <div class="doctor-header">
-                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=300&auto=format&fit=crop" alt="Dr. Alejandro Morales" class="doctor-avatar">
+                    <img src="https://images.unsplash.com/photo-1594824813547-5d2984534f82?q=80&w=300&auto=format&fit=crop" alt="Dra. Ruth Muñoz" class="doctor-avatar">
                     <div class="doctor-info">
-                        <h3>Dr. Alejandro Morales</h3>
-                        <div class="doctor-spec">Medicina Familiar</div>
-                        <div class="doctor-reg">Registro SIS: 458921</div>
+                        <h3>Dra. Ruth Muñoz</h3>
+                        <div class="doctor-spec">Pediatría</div>
+                        <div class="doctor-reg">Registro SIS: Verificado</div>
                         <div class="availability-badge">🟢 Próxima hora: Mañana</div>
                     </div>
                 </div>
                 <div class="doctor-body">
-                    <p class="doctor-bio">Enfoque clínico centrado en seguimiento crónico, orientación diagnóstica y apoyo personalizado.</p>
+                    <p class="doctor-bio">Especialista con tremenda calidez y calidad humana, dedicada al cuidado integral, desarrollo y salud de tus hijos.</p>
                     
                     <div class="booking-box">
                         <span class="booking-label">1. Selecciona el día:</span>
-                        <input type="date" id="date-morales" class="booking-input" value="2026-10-25">
+                        <input type="date" id="date-ruth" class="booking-input" value="2026-10-25">
                         
                         <span class="booking-label">2. Elige un horario disponible:</span>
-                        <div class="slots-container" id="slots-morales">
-                            <div class="time-slot" onclick="selectSlot('morales', '10:00', this)">10:00</div>
-                            <div class="time-slot" onclick="selectSlot('morales', '11:00', this)">11:00</div>
-                            <div class="time-slot" onclick="selectSlot('morales', '12:00', this)">12:00</div>
+                        <div class="slots-container" id="slots-ruth">
+                            <div class="time-slot" onclick="selectSlot('ruth', '10:00', this)">10:00</div>
+                            <div class="time-slot" onclick="selectSlot('ruth', '11:00', this)">11:00</div>
+                            <div class="time-slot" onclick="selectSlot('ruth', '12:00', this)">12:00</div>
                         </div>
 
-                        <button onclick="openBookingModal('Dr. Alejandro Morales', 'date-morales', 'morales')" class="btn-confirm-booking">Confirmar y Reservar Hora</button>
+                        <button onclick="openBookingModal('Dra. Ruth Muñoz', 'date-ruth', 'ruth')" class="btn-confirm-booking">Confirmar y Reservar Hora</button>
                     </div>
                 </div>
             </div>
@@ -754,13 +760,14 @@
         </div>
     </div>
 
+    <!-- SECCIÓN DE OPINIONES Y RESEÑAS VERIFICADAS -->
     <div id="opiniones" class="section-container">
         <h2 class="section-title">Lo que dicen nuestros pacientes</h2>
         <div class="reviews-grid">
             
             <div class="review-card">
                 <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <p class="review-text">"Excelente atención. La doctora fue muy paciente, explicó todo con claridad y me mandó la receta al instante. 100% recomendado."</p>
+                <p class="review-text">"Excelente atención de la Dra. Ruth con mi hijo. Muy paciente, cariñosa y resolvió todas nuestras dudas de padres primerizos."</p>
                 <div class="review-author">— Marcela R., Santiago</div>
             </div>
 
@@ -779,6 +786,7 @@
         </div>
     </div>
 
+    <!-- VENTANA EMERGENTE (MODAL) CON PREGUNTAS PREVIAS -->
     <div id="bookingModal" class="modal-overlay">
         <div class="modal-content">
             <h3 class="modal-title">Registro de Paciente</h3>
@@ -801,7 +809,7 @@
 
             <div class="form-group">
                 <label>Breve motivo de consulta / Síntomas</label>
-                <textarea id="patientReason" class="form-textarea" placeholder="Ej. Control de presión, dolor de garganta, receta crónica..."></textarea>
+                <textarea id="patientReason" class="form-textarea" placeholder="Ej. Control sano, fiebre, tos, receta crónica..."></textarea>
             </div>
 
             <div class="modal-buttons">
@@ -811,6 +819,7 @@
         </div>
     </div>
 
+    <!-- Sección de Pasos -->
     <div id="como-funciona" class="section-container" style="margin-top: 0;">
         <h2 class="section-title">¿Cómo funciona la teleconsulta?</h2>
         <div class="steps-grid">
@@ -832,6 +841,7 @@
         </div>
     </div>
 
+    <!-- SECCIÓN DE PREGUNTAS FRECUENTES -->
     <div id="faq" class="faq-container">
         <h2 class="section-title" style="margin-bottom: 2.5rem;">Preguntas Frecuentes</h2>
         
@@ -851,6 +861,7 @@
         </div>
     </div>
 
+    <!-- PIE DE PÁGINA (FOOTER) INSTITUCIONAL -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-col">
@@ -876,10 +887,11 @@
         </div>
     </footer>
 
+    <!-- Script JavaScript -->
     <script>
         const selectedTimes = {
             jennie: null,
-            morales: null
+            ruth: null
         };
 
         let currentBookingData = {};
