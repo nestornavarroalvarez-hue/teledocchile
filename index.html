@@ -219,14 +219,19 @@
             position: relative;
         }
 
+        /* ESTILO CORREGIDO PARA LA IMAGEN CIRCULAR */
         .doctor-avatar {
             width: 90px;
             height: 90px;
             border-radius: 50%;
-            object-fit: cover;
-            object-position: center top;
             border: 3px solid var(--color-secundario);
             flex-shrink: 0;
+            /* TRUCO PARA RECORTAR LA IMAGEN CUADRADA */
+            background-size: cover;       /* O contain, según preferencia */
+            background-position: center;  /* Centra la cara */
+            background-repeat: no-repeat;
+            /* Oculta cualquier parte de la imagen original que se salga del círculo */
+            overflow: hidden;
         }
 
         .doctor-info h3 {
@@ -729,10 +734,12 @@
                 </div>
             </div>
 
-            <!-- Médico 2: Dra. Ruth Muñoz Espinoza (Pediatra) -->
+            <!-- Médico 2: Dra. Ruth Muñoz Espinoza -->
             <div class="doctor-card">
                 <div class="doctor-header">
-                    <img src="https://images.unsplash.com/photo-1594824813547-5d2984534f82?q=80&w=300&auto=format&fit=crop" alt="Dra. Ruth Muñoz Espinoza" class="doctor-avatar">
+                    <!-- LA RUTA DE LA IMAGEN SE PONE COMO UN ESTILO DE FONDO (BACKGROUND-IMAGE) PARA RECORTARLA CORRECTAMENTE -->
+                    <div class="doctor-avatar" style="background-image: url('https://images.unsplash.com/photo-1594824813547-5d2984534f82?q=80&w=300&auto=format&fit=crop');" alt="Dra. Ruth Muñoz Espinoza"></div>
+                    
                     <div class="doctor-info">
                         <h3>Dra. Ruth Muñoz Espinoza</h3>
                         <div class="doctor-spec">Pediatría</div>
@@ -827,131 +834,4 @@
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-number">01</div>
-                <h3>Elige fecha, hora y motivo</h3>
-                <p>Selecciona a tu profesional, el horario de preferencia y detalla brevemente tu motivo de consulta.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">02</div>
-                <h3>Regístrate en la plataforma</h3>
-                <p>Ingresa tus datos personales para generar tu ficha y coordinar tu atención de forma segura.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">03</div>
-                <h3>Coordina tu pago</h3>
-                <p>Envía tu comprobante de transferencia por WhatsApp para confirmar tu enlace de videollamada.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECCIÓN DE PREGUNTAS FRECUENTES -->
-    <div id="faq" class="faq-container">
-        <h2 class="section-title" style="margin-bottom: 2.5rem;">Preguntas Frecuentes</h2>
-        
-        <div class="faq-item">
-            <h4>¿Se pueden emitir recetas médicas y órdenes de exámenes válidas?</h4>
-            <p>Sí, nuestros profesionales emiten recetas electrónicas oficiales y órdenes de exámenes que puedes presentar sin problemas en cualquier farmacia (incluso para activar beneficios de ley o convenios) o centro de salud del país.</p>
-        </div>
-
-        <div class="faq-item">
-            <h4>¿Cómo funciona el pago, Fonasa y las Isapres en TeleDocChile?</h4>
-            <p>Pensando en la economía de tu hogar, ofrecemos una tarifa preferencial y justa de $30.000 CLP por consulta particular. Si estás en Fonasa, accederás a una atención rápida sin meses de espera. Si estás en Isapre o cuentas con seguro complementario, te entregamos una boleta de honorarios médica detallada para que puedas presentarla y gestionar tu reembolso de manera directa.</p>
-        </div>
-
-        <div class="faq-item">
-            <h4>¿Cuál es la duración real de cada teleconsulta?</h4>
-            <p>Cada sesión se extiende por un periodo de 20 a 30 minutos. Es un espacio dedicado, humano y sin apuros, diseñado para escuchar tus síntomas, resolver tus dudas y entregarte indicaciones claras para tu recuperación.</p>
-        </div>
-    </div>
-
-    <!-- PIE DE PÁGINA (FOOTER) INSTITUCIONAL -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-col">
-                <h4>TeleDocChile</h4>
-                <p>Plataforma de telemedicina orientada a brindar atención médica de excelencia, cercana y con calidez humana para todo Chile.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Enlaces Rápidos</h4>
-                <p><a href="#">Inicio</a></p>
-                <p><a href="#especialistas">Profesionales</a></p>
-                <p><a href="#opiniones">Opiniones de Pacientes</a></p>
-                <p><a href="#faq">Preguntas Frecuentes</a></p>
-            </div>
-            <div class="footer-col">
-                <h4>Contacto y Base</h4>
-                <p>📍 Linares, Región del Maule, Chile</p>
-                <p>✉️ contacto@teledocchile.cl</p>
-                <p>🕒 Lunes a Sábado</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 TeleDocChile.cl - Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <!-- Script JavaScript -->
-    <script>
-        const selectedTimes = {
-            jennie: null,
-            ruth: null
-        };
-
-        let currentBookingData = {};
-
-        function selectSlot(doctorKey, time, element) {
-            const container = document.getElementById('slots-' + doctorKey);
-            const slots = container.getElementsByClassName('time-slot');
-            for (let slot of slots) {
-                slot.classList.remove('selected');
-            }
-            element.classList.add('selected');
-            selectedTimes[doctorKey] = time;
-        }
-
-        function openBookingModal(doctorName, dateInputId, doctorKey) {
-            const dateValue = document.getElementById(dateInputId).value;
-            const timeValue = selectedTimes[doctorKey];
-
-            if (!timeValue) {
-                alert('Por favor, selecciona un horario disponible antes de confirmar.');
-                return;
-            }
-
-            currentBookingData = {
-                doctorName: doctorName,
-                date: dateValue,
-                time: timeValue
-            };
-
-            document.getElementById('modalSubtitle').innerText = `Cita con ${doctorName} para el ${dateValue} a las ${timeValue} hrs.`;
-            document.getElementById('bookingModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('bookingModal').style.display = 'none';
-        }
-
-        function submitBooking() {
-            const name = document.getElementById('patientName').value.trim();
-            const rut = document.getElementById('patientRut').value.trim();
-            const email = document.getElementById('patientEmail').value.trim();
-            const reason = document.getElementById('patientReason').value.trim() || "No especificado";
-
-            if (!name || !rut || !email) {
-                alert('Por favor, completa todos los campos obligatorios (Nombre, RUT y Correo).');
-                return;
-            }
-
-            alert(`¡Reserva procesada con éxito!\n\n1. Hemos registrado tus datos y motivo para tu ficha.\n2. A continuación, se abrirá WhatsApp para coordinar tu pago y comprobante.`);
-
-            const message = `Hola, mi nombre es ${name} (RUT: ${rut}, Correo: ${email}). Deseo confirmar mi teleconsulta con ${currentBookingData.doctorName} para el día ${currentBookingData.date} a las ${currentBookingData.time} horas en TeleDocChile.\n\nMotivo de consulta: ${reason}\n\nAdjunto mi comprobante de pago.`;
-            const phone = "56900000000";
-            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-            closeModal();
-            window.open(url, '_blank');
-        }
-    </script>
-
-</body>
-</html>
+                <h3>El
