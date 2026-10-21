@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Médico - TeleDocChile</title>
+    <title>Consola de Atención Médica - TeleDocChile</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,212 +15,329 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--fuente-principal); background-color: var(--color-fondo); color: var(--color-texto); line-height: 1.6; }
+        body { font-family: var(--fuente-principal); background-color: var(--color-fondo); color: var(--color-texto); line-height: 1.5; }
 
         .header {
             background: #FFFFFF;
-            padding: 1.25rem 5%;
+            padding: 1rem 2rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--color-principal); text-decoration: none; }
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--color-principal); text-decoration: none; }
         .logo span { color: var(--color-secundario); }
 
         .doctor-badge {
             background: #E6F8F3;
             color: #007A5C;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 1rem;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border: 1px solid #B2F2E2;
         }
 
-        .main-container {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-
-        .dashboard-title {
-            font-size: 2rem;
-            color: var(--color-principal);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-        }
-
-        .stats-grid {
+        /* Layout de Consola Dividida */
+        .console-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: 320px 1fr;
+            height: calc(100vh - 70px);
+            background: #F1F5F9;
         }
 
-        .stat-card {
+        /* Columna Izquierda: Agenda y Lista de Espera */
+        .sidebar-agenda {
             background: #FFFFFF;
-            padding: 1.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            border: 1px solid #F1F5F9;
+            border-right: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
         }
 
-        .stat-card h4 {
-            color: #64748B;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
+        .sidebar-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid #E2E8F0;
         }
 
-        .stat-value {
-            font-size: 1.75rem;
-            font-weight: 800;
+        .sidebar-header h3 {
             color: var(--color-principal);
-        }
-
-        .section-box {
-            background: #FFFFFF;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            border: 1px solid #F1F5F9;
-            margin-bottom: 2rem;
-        }
-
-        .section-box h3 {
-            color: var(--color-principal);
-            font-size: 1.25rem;
+            font-size: 1rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
         }
 
-        .appointment-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
+        .patient-list {
+            display: flex;
+            flex-direction: column;
         }
 
-        .appointment-table th {
-            background: #F8FAFC;
-            color: var(--color-principal);
-            padding: 1rem;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            border-bottom: 2px solid #E2E8F0;
-        }
-
-        .appointment-table td {
-            padding: 1rem;
+        .patient-item {
+            padding: 1rem 1.25rem;
             border-bottom: 1px solid #F1F5F9;
-            font-size: 0.95rem;
-            color: #475569;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
         }
 
-        .btn-action {
-            background-color: var(--color-secundario);
-            color: #FFFFFF;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
-            display: inline-block;
-            transition: background 0.3s ease;
-        }
+        .patient-item:hover { background: #F8FAFC; }
+        .patient-item.active { background: #E6F8F3; border-left: 4px solid var(--color-secundario); }
 
-        .btn-action:hover { background-color: #00A37A; }
+        .patient-time { font-size: 0.75rem; font-weight: 700; color: var(--color-secundario); text-transform: uppercase; }
+        .patient-name { font-size: 0.95rem; font-weight: 700; color: var(--color-principal); }
+        .patient-reason { font-size: 0.8rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .meet-box {
-            background: #E6F8F3;
-            border: 1px solid #B2F2E2;
+        /* Columna Derecha: Consola Activa (Video + Ficha) */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
             padding: 1.5rem;
-            border-radius: 14px;
+            overflow-y: auto;
+        }
+
+        .workspace-panel {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .panel-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-principal);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .meet-info h4 { color: var(--color-principal); font-weight: 700; margin-bottom: 0.25rem; }
-        .meet-info p { color: #007A5C; font-size: 0.9rem; }
+        /* Contenedor de Video */
+        .video-box {
+            background: #0F172A;
+            border-radius: 12px;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF;
+            position: relative;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .video-box p { color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem; }
+
+        .btn-video {
+            background-color: var(--color-secundario);
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        .btn-video:hover { background-color: #00A37A; }
+
+        /* Ficha Clínica y Recetas */
+        .form-group-console {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .form-group-console label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-principal);
+            text-transform: uppercase;
+        }
+
+        .console-input, .console-textarea {
+            padding: 0.65rem;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            font-family: var(--fuente-principal);
+            font-size: 0.9rem;
+            background: #F8FAFC;
+        }
+
+        .console-textarea { resize: vertical; height: 110px; }
+
+        .patient-info-box {
+            background: #F8FAFC;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .patient-info-box span { font-size: 0.85rem; color: #475569; }
+
+        .btn-save-record {
+            background-color: var(--color-principal);
+            color: #FFFFFF;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+            text-align: center;
+            display: block;
+            width: 100%;
+        }
+        .btn-save-record:hover { background-color: #003652; }
+
+        @media (max-width: 1024px) {
+            .console-container { grid-template-columns: 1fr; height: auto; }
+            .workspace { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <a href="#" class="logo">TeleDoc<span>Chile</span> <span style="font-size: 0.9rem; font-weight: 400; color: #64748B;">| Panel Médico</span></a>
+        <a href="#" class="logo">TeleDoc<span>Chile</span> <span style="font-size: 0.85rem; font-weight: 400; color: #64748B;">| Consola Médica</span></a>
         <div class="doctor-badge">Dra. Jennie Guzmán Tapia</div>
     </header>
 
-    <div class="main-container">
-        <h2 class="dashboard-title">Panel de Control Diario</h2>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h4>Citas para Hoy</h4>
-                <div class="stat-value">3 Pacientes</div>
+    <div class="console-container">
+        
+        <!-- AGENDA / LISTA DE PACIENTES -->
+        <aside class="sidebar-agenda">
+            <div class="sidebar-header">
+                <h3>📅 Pacientes en Espera (Hoy)</h3>
             </div>
-            <div class="stat-card">
-                <h4>Valor Consulta</h4>
-                <div class="stat-value">$30.000 CLP</div>
-            </div>
-            <div class="stat-card">
-                <h4>Estado de Plataforma</h4>
-                <div class="stat-value" style="color: var(--color-secundario);">🟢 Activa</div>
-            </div>
-        </div>
-
-        <div class="section-box" style="margin-bottom: 2rem;">
-            <h3>Sala de Videoconsulta Activa</h3>
-            <div class="meet-box">
-                <div class="meet-info">
-                    <h4>Enlace de Videollamada (Google Meet / Zoom)</h4>
-                    <p>Comparte este acceso con tus pacientes o conéctate directamente a la hora programada.</p>
+            <div class="patient-list" id="patientList">
+                <div class="patient-item active" onclick="loadPatient(0)">
+                    <span class="patient-time">15:00 hrs</span>
+                    <span class="patient-name">Marcela Ríos</span>
+                    <span class="patient-reason">Control general y exámenes</span>
                 </div>
-                <a href="https://meet.google.com/new" target="_blank" class="btn-action">🎥 Iniciar Sala de Videollamada</a>
+                <div class="patient-item" onclick="loadPatient(1)">
+                    <span class="patient-time">16:00 hrs</span>
+                    <span class="patient-name">Rodrigo Vera</span>
+                    <span class="patient-reason">Dolor lumbar y receta</span>
+                </div>
+                <div class="patient-item" onclick="loadPatient(2)">
+                    <span class="patient-time">17:00 hrs</span>
+                    <span class="patient-name">Andrea Morales</span>
+                    <span class="patient-reason">Control sano / respiratorio</span>
+                </div>
             </div>
-        </div>
+        </aside>
 
-        <div class="section-box">
-            <h3>Agenda de Pacientes y Motivos de Consulta</h3>
-            <table class="appointment-table">
-                <thead>
-                    <tr>
-                        <th>Hora</th>
-                        <th>Paciente</th>
-                        <th>RUT</th>
-                        <th>Motivo / Síntomas</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>15:00 hrs</strong></td>
-                        <td>Marcela Ríos</td>
-                        <td>14.567.890-k</td>
-                        <td>Control general de salud y revisión de exámenes preventivos.</td>
-                        <td><a href="https://wa.me/56900000000?text=Hola%20Marcela,%20te%20escribo%20desde%20TeleDocChile%20para%20iniciar%20nuestra%20videoconsulta." target="_blank" class="btn-action">💬 Contactar / Atender</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>16:00 hrs</strong></td>
-                        <td>Rodrigo Vera</td>
-                        <td>12.345.678-9</td>
-                        <td>Dolor lumbar leve y solicitud de receta crónica.</td>
-                        <td><a href="https://wa.me/56900000000?text=Hola%20Rodrigo,%20te%20escribo%20desde%20TeleDocChile%20para%20iniciar%20nuestra%20videoconsulta." target="_blank" class="btn-action">💬 Contactar / Atender</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>17:00 hrs</strong></td>
-                        <td>Andrea Morales</td>
-                        <td>16.789.012-3</td>
-                        <td>Control sano y orientación sobre síntomas respiratorios leves.</td>
-                        <td><a href="https://wa.me/56900000000?text=Hola%20Andrea,%20te%20escribo%20desde%20TeleDocChile%20para%20iniciar%20nuestra%20videoconsulta." target="_blank" class="btn-action">💬 Contactar / Atender</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <!-- ESPACIO DE TRABAJO (VIDEOCONFERENCIA + FICHA CLÍNICA) -->
+        <main class="workspace">
+            
+            <!-- Panel Izquierdo: Sala de Video -->
+            <div class="workspace-panel">
+                <div class="panel-title">
+                    <span>1. Sala de Videoconsulta</span>
+                    <span id="activePatientTag" style="font-size: 0.8rem; color: #007A5C; background: #E6F8F3; padding: 0.2rem 0.6rem; border-radius: 12px;">Atendiendo a: Marcela Ríos</span>
+                </div>
+                
+                <div class="video-box">
+                    <p>Conecta la videollamada para iniciar la sesión con el paciente seleccionado.</p>
+                    <a href="https://meet.google.com/new" target="_blank" class="btn-video">🎥 Abrir Videollamada (Meet)</a>
+                </div>
+
+                <div style="background: #F8FAFC; padding: 1rem; border-radius: 10px; border: 1px solid #E2E8F0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-principal); display: block; margin-bottom: 0.4rem;">CANAL DIRECTO</span>
+                    <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 0.75rem;">Si necesitas enviar el enlace directo o coordinar por chat:</p>
+                    <a id="whatsappContactBtn" href="https://wa.me/56900000000?text=Hola%20Marcela,%20te%20escribo%20desde%20TeleDocChile%20para%20iniciar%20nuestra%20teleconsulta." target="_blank" class="btn-video" style="background-color: #25D366; display: inline-block; text-align: center; width: 100%;">💬 Enviar Mensaje WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Panel Derecho: Ficha Clínica, Notas y Recetas -->
+            <div class="workspace-panel">
+                <div class="panel-title">
+                    <span>2. Ficha Clínica y Receta</span>
+                </div>
+
+                <div class="patient-info-box">
+                    <span id="infoRut"><strong>RUT:</strong> 14.567.890-k</span>
+                    <span id="infoEmail"><strong>Correo:</strong> marcela.rios@ejemplo.cl</span>
+                    <span id="infoReason"><strong>Motivo:</strong> Control general de salud y revisión de exámenes preventivos.</span>
+                </div>
+
+                <div class="form-group-console">
+                    <label>Notas Clínicas / Anamnesis</label>
+                    <textarea class="console-textarea" placeholder="Registra los síntomas, diagnóstico o evolución del paciente..."></textarea>
+                </div>
+
+                <div class="form-group-console">
+                    <label>Receta Médica / Indicaciones / Exámenes</label>
+                    <textarea class="console-textarea" placeholder="Escribe aquí los medicamentos, dosis u órdenes de exámenes..."></textarea>
+                </div>
+
+                <button onclick="saveRecord()" class="btn-save-record">💾 Guardar Ficha y Finalizar Sesión</button>
+            </div>
+
+        </main>
     </div>
 
+    <script>
+        const patientsData = [
+            {
+                name: "Marcela Ríos",
+                time: "15:00 hrs",
+                rut: "14.567.890-k",
+                email: "marcela.rios@ejemplo.cl",
+                reason: "Control general de salud y revisión de exámenes preventivos.",
+                wa: "Hola Marcela, te escribo desde TeleDocChile para iniciar nuestra teleconsulta."
+            },
+            {
+                name: "Rodrigo Vera",
+                time: "16:00 hrs",
+                rut: "12.345.678-9",
+                email: "rodrigo.vera@ejemplo.cl",
+                reason: "Dolor lumbar leve y solicitud de receta crónica.",
+                wa: "Hola Rodrigo, te escribo desde TeleDocChile para iniciar nuestra teleconsulta."
+            },
+            {
+                name: "Andrea Morales",
+                time: "17:00 hrs",
+                rut: "16.789.012-3",
+                email: "andrea.morales@ejemplo.cl",
+                reason: "Control sano y orientación sobre síntomas respiratorios leves.",
+                wa: "Hola Andrea, te escribo desde TeleDocChile para iniciar nuestra teleconsulta."
+            }
+        ];
+
+        function loadPatient(index) {
+            const p = patientsData[index];
+            
+            // Actualizar pestañas activas
+            const items = document.querySelectorAll('.patient-item');
+            items.forEach((item, idx) => {
+                if(idx === index) item.classList.add('active');
+                else item.classList.remove('active');
+            });
+
+            // Actualizar textos en consola
+            document.getElementById('activePatientTag').innerText = `Atendiendo a: ${p.name}`;
+            document.getElementById('infoRut').innerHTML = `<strong>RUT:</strong> ${p.rut}`;
+            document.getElementById('infoEmail').innerHTML = `<strong>Correo:</strong> ${p.email}`;
+            document.getElementById('infoReason').innerHTML = `<strong>Motivo:</strong> ${p.reason}`;
+            document.getElementById('whatsappContactBtn').href = `https://wa.me/56900000000?text=${encodeURIComponent(p.wa)}`;
+        }
+
+        function saveRecord() {
+            alert('¡Ficha clínica guardada con éxito en el registro local de la sesión!');
+        }
+    </script>
 </body>
 </html>
