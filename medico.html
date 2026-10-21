@@ -251,7 +251,7 @@
             font-size: 0.85rem;
             background: #F8FAFC;
             resize: vertical;
-            height: 65px;
+            height: 75px;
         }
 
         .patient-info-box {
@@ -429,7 +429,7 @@
                 </div>
             </div>
 
-            <!-- Panel Derecho: Ficha, Dictado por Voz y Receta -->
+            <!-- Panel Derecho: Ficha, Dictado por Voz Inteligente y Receta -->
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>2. Ficha y Exámenes del Paciente</span>
@@ -468,13 +468,13 @@
                     <textarea id="clinicalNotes" class="console-textarea" placeholder="Registra síntomas o dicta con el micrófono..."></textarea>
                 </div>
 
-                <!-- Receta Médica con Dictado por Voz y Redacción IA -->
+                <!-- Receta Médica con Dictado por Voz Limpio e Inteligente -->
                 <div class="form-group-console">
                     <div class="label-header">
                         <label>Receta Médica / Indicaciones</label>
                         <button type="button" class="btn-mic" onclick="toggleVoiceDictation('prescriptionText', this)">🎤 Dictar Receta</button>
                     </div>
-                    <textarea id="prescriptionText" class="console-textarea" placeholder="Dicta los medicamentos y la plataforma los redactará formalmente..."></textarea>
+                    <textarea id="prescriptionText" class="console-textarea" placeholder="Dicta la prescripción médica (Ej: Aspirina 100mg cada 24 horas)..."></textarea>
                 </div>
 
                 <button onclick="sendPrescriptionWhatsApp()" class="btn-send-whatsapp">
@@ -582,7 +582,7 @@
             }
         }
 
-        // Sistema de Dictado por Voz con IA simulada de redacción médica
+        // Sistema de Dictado por Voz Corregido e Inteligente
         let recognition = null;
         function toggleVoiceDictation(elementId, btnElement) {
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -595,7 +595,7 @@
             if (btnElement.classList.contains('recording')) {
                 if (recognition) recognition.stop();
                 btnElement.classList.remove('recording');
-                btnElement.innerHTML = '🎤 Dictar';
+                btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
                 return;
             }
 
@@ -608,16 +608,20 @@
             btnElement.innerHTML = '🔴 Escuchando...';
 
             recognition.onresult = function(event) {
-                const speechResult = event.results[0][0].transcript;
+                const speechResult = event.results[0][0].transcript.trim();
                 const targetArea = document.getElementById(elementId);
                 
-                // Simulación de formateo inteligente de redacción médica
-                let formattedText = speechResult;
+                let processedText = speechResult;
+                
+                // Si es receta, formateamos con viñetas limpias reemplazando texto anterior duplicado
                 if (elementId === 'prescriptionText') {
-                    formattedText = `• Fármaco recetado (Dictado por voz): ${speechResult.charAt(0).toUpperCase() + speechResult.slice(1)}.\n• Indicación: Tomar según indicación médica y mantener hidratación.`;
+                    const capitalized = speechResult.charAt(0).toUpperCase() + speechResult.slice(1);
+                    processedText = `• Fármaco / Prescripción: ${capitalized}\n• Indicación Médica: Según indicación profesional y control periódico.`;
                 }
 
-                targetArea.value = targetArea.value ? targetArea.value + '\n' + formattedText : formattedText;
+                // Reemplaza el texto para evitar duplicaciones innecesarias y mostrar el dictado limpio
+                targetArea.value = processedText;
+                
                 btnElement.classList.remove('recording');
                 btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
             };
