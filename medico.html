@@ -51,6 +51,7 @@
             border-right: 1px solid #E2E8F0;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             overflow-y: auto;
         }
 
@@ -68,6 +69,7 @@
         .patient-list {
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
         }
 
         .patient-item {
@@ -86,6 +88,30 @@
         .patient-time { font-size: 0.75rem; font-weight: 700; color: var(--color-secundario); text-transform: uppercase; }
         .patient-name { font-size: 0.95rem; font-weight: 700; color: var(--color-principal); }
         .patient-reason { font-size: 0.8rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* Módulo de Reloj Digital en la esquina inferior izquierda */
+        .digital-clock-box {
+            background: #F8FAFC;
+            border-top: 1px solid #E2E8F0;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .clock-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748B;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .clock-time {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-principal);
+            font-family: monospace;
+        }
 
         .workspace {
             display: grid;
@@ -115,11 +141,11 @@
             align-items: center;
         }
 
-        /* Video integrado en paralelo */
+        /* Video ampliado en altura vertical */
         .video-box {
             background: #0F172A;
             border-radius: 12px;
-            height: 280px;
+            height: 440px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -144,11 +170,11 @@
         .btn-action-video {
             background-color: var(--color-secundario);
             color: #FFFFFF;
-            padding: 0.6rem 1.2rem;
+            padding: 0.7rem 1.4rem;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             border: none;
             cursor: pointer;
             transition: background 0.3s ease;
@@ -241,34 +267,42 @@
 
     <div class="console-container">
         
-        <!-- AGENDA / LISTA DE PACIENTES -->
+        <!-- AGENDA Y RELOJ DIGITAL -->
         <aside class="sidebar-agenda">
-            <div class="sidebar-header">
-                <h3>📅 Pacientes en Espera (Hoy)</h3>
+            <div>
+                <div class="sidebar-header">
+                    <h3>📅 Pacientes en Espera (Hoy)</h3>
+                </div>
+                <div class="patient-list" id="patientList">
+                    <div class="patient-item active" onclick="loadPatient(0)">
+                        <span class="patient-time">15:00 hrs</span>
+                        <span class="patient-name">Marcela Ríos</span>
+                        <span class="patient-reason">Control general y exámenes</span>
+                    </div>
+                    <div class="patient-item" onclick="loadPatient(1)">
+                        <span class="patient-time">16:00 hrs</span>
+                        <span class="patient-name">Rodrigo Vera</span>
+                        <span class="patient-reason">Dolor lumbar y receta</span>
+                    </div>
+                    <div class="patient-item" onclick="loadPatient(2)">
+                        <span class="patient-time">17:00 hrs</span>
+                        <span class="patient-name">Andrea Morales</span>
+                        <span class="patient-reason">Control sano / respiratorio</span>
+                    </div>
+                </div>
             </div>
-            <div class="patient-list" id="patientList">
-                <div class="patient-item active" onclick="loadPatient(0)">
-                    <span class="patient-time">15:00 hrs</span>
-                    <span class="patient-name">Marcela Ríos</span>
-                    <span class="patient-reason">Control general y exámenes</span>
-                </div>
-                <div class="patient-item" onclick="loadPatient(1)">
-                    <span class="patient-time">16:00 hrs</span>
-                    <span class="patient-name">Rodrigo Vera</span>
-                    <span class="patient-reason">Dolor lumbar y receta</span>
-                </div>
-                <div class="patient-item" onclick="loadPatient(2)">
-                    <span class="patient-time">17:00 hrs</span>
-                    <span class="patient-name">Andrea Morales</span>
-                    <span class="patient-reason">Control sano / respiratorio</span>
-                </div>
+
+            <!-- Módulo de Reloj Digital -->
+            <div class="digital-clock-box">
+                <div class="clock-label">Hora Local Actual</div>
+                <div class="clock-time" id="digitalClock">00:00:00</div>
             </div>
         </aside>
 
         <!-- ESPACIO DE TRABAJO EN PANTALLA DIVIDIDA -->
         <main class="workspace">
             
-            <!-- Panel Izquierdo: Videocámara en Vivo Integrada -->
+            <!-- Panel Izquierdo: Videocámara en Vivo Ampliada -->
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>1. Videoconsulta en Pantalla</span>
@@ -277,15 +311,10 @@
                 
                 <div class="video-box" id="videoContainer">
                     <div class="video-placeholder" id="videoPlaceholder">
-                        <p style="color: #94A3B8; font-size: 0.85rem; margin-bottom: 0.75rem;">Activa la cámara para iniciar la sesión visual con el paciente sin perder tu panel.</p>
+                        <p style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">Activa la cámara para iniciar la sesión visual con el paciente.</p>
                         <button onclick="startCamera()" class="btn-action-video">📷 Activar Cámara en Vivo</button>
                     </div>
                     <video id="webcamVideo" autoplay playsinline></video>
-                </div>
-
-                <div style="background: #F8FAFC; padding: 0.85rem; border-radius: 10px; border: 1px solid #E2E8F0;">
-                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-principal); display: block; margin-bottom: 0.2rem;">ACCESO RÁPIDO</span>
-                    <p style="font-size: 0.8rem; color: #64748B;">La videoconsulta opera en paralelo, permitiéndote redactar recetas y revisar antecedentes sin salir de esta vista.</p>
                 </div>
             </div>
 
@@ -323,6 +352,17 @@
     </div>
 
     <script>
+        // Reloj Digital en Tiempo Real
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('digitalClock').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
         const patientsData = [
             {
                 name: "Marcela Ríos",
