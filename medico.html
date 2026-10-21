@@ -17,70 +17,20 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: var(--fuente-principal); background-color: var(--color-fondo); color: var(--color-texto); line-height: 1.5; }
 
-        .header {
-            background: #FFFFFF;
-            padding: 1rem 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .header { background: #FFFFFF; padding: 1rem 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.4rem; font-weight: 800; color: var(--color-principal); text-decoration: none; }
         .logo span { color: var(--color-secundario); }
 
-        .doctor-badge {
-            background: #E6F8F3;
-            color: #007A5C;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            border: 1px solid #B2F2E2;
-        }
+        .doctor-badge { background: #E6F8F3; color: #007A5C; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem; border: 1px solid #B2F2E2; }
 
-        .console-container {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            height: calc(100vh - 70px);
-            background: #F1F5F9;
-        }
+        .console-container { display: grid; grid-template-columns: 300px 1fr; height: calc(100vh - 70px); background: #F1F5F9; }
 
-        .sidebar-agenda {
-            background: #FFFFFF;
-            border-right: 1px solid #E2E8F0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow-y: auto;
-        }
+        .sidebar-agenda { background: #FFFFFF; border-right: 1px solid #E2E8F0; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
+        .sidebar-header { padding: 1.25rem; border-bottom: 1px solid #E2E8F0; }
+        .sidebar-header h3 { color: var(--color-principal); font-size: 1rem; font-weight: 700; }
 
-        .sidebar-header {
-            padding: 1.25rem;
-            border-bottom: 1px solid #E2E8F0;
-        }
-
-        .sidebar-header h3 {
-            color: var(--color-principal);
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .patient-list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .patient-item {
-            padding: 1rem 1.25rem;
-            border-bottom: 1px solid #F1F5F9;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
+        .patient-list { display: flex; flex-direction: column; }
+        .patient-item { padding: 1rem 1.25rem; border-bottom: 1px solid #F1F5F9; cursor: pointer; transition: background 0.2s ease; display: flex; flex-direction: column; gap: 0.25rem; }
         .patient-item:hover { background: #F8FAFC; }
         .patient-item.active { background: #E6F8F3; border-left: 4px solid var(--color-secundario); }
 
@@ -88,271 +38,43 @@
         .patient-name { font-size: 0.95rem; font-weight: 700; color: var(--color-principal); }
         .patient-reason { font-size: 0.8rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .sidebar-timer-section {
-            background: #F1F5F9;
-            border-top: 1px solid #E2E8F0;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
+        .sidebar-timer-section { background: #F1F5F9; border-top: 1px solid #E2E8F0; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .timers-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+        .timer-card { background: #FFFFFF; padding: 0.5rem; border-radius: 8px; border: 1px solid #CBD5E1; text-align: center; }
+        .timer-title { font-size: 0.58rem; text-transform: uppercase; color: #64748B; font-weight: 700; margin-bottom: 0.1rem; }
+        .timer-value { font-size: 0.9rem; font-weight: 800; color: var(--color-principal); }
 
-        .timers-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
+        .digital-clock-box { background: #FFFFFF; border-top: 1px solid #E2E8F0; padding: 0.85rem; text-align: center; }
+        .clock-time { font-size: 1.3rem; font-weight: 800; color: var(--color-principal); font-family: monospace; }
 
-        .timer-card {
-            background: #FFFFFF;
-            padding: 0.5rem;
-            border-radius: 8px;
-            border: 1px solid #CBD5E1;
-            text-align: center;
-        }
+        .workspace { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.25rem; padding: 1.25rem; overflow-y: auto; }
+        .workspace-panel { background: #FFFFFF; border-radius: 16px; padding: 1.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #E2E8F0; display: flex; flex-direction: column; gap: 0.85rem; }
+        .panel-title { font-size: 1.05rem; font-weight: 700; color: var(--color-principal); display: flex; justify-content: space-between; align-items: center; }
 
-        .timer-title {
-            font-size: 0.58rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            color: #64748B;
-            font-weight: 700;
-            margin-bottom: 0.1rem;
-        }
+        .video-box { background: #0F172A; border-radius: 12px; height: 520px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #FFFFFF; position: relative; overflow: hidden; }
+        #webcamVideo { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .video-placeholder { text-align: center; padding: 1rem; }
+        .btn-action-video { background-color: var(--color-secundario); color: #FFFFFF; padding: 0.7rem 1.4rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; }
 
-        .timer-value {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: var(--color-principal);
-        }
+        .form-group-console { display: flex; flex-direction: column; gap: 0.25rem; }
+        .label-header { display: flex; justify-content: space-between; align-items: center; }
+        .form-group-console label { font-size: 0.75rem; font-weight: 700; color: var(--color-principal); text-transform: uppercase; }
 
-        .digital-clock-box {
-            background: #FFFFFF;
-            border-top: 1px solid #E2E8F0;
-            padding: 0.85rem;
-            text-align: center;
-        }
+        .btn-mic { background: #E2E8F0; color: #1E293B; border: none; padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+        .btn-mic.recording { background: #EF4444; color: #FFFFFF; }
 
-        .clock-time {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--color-principal);
-            font-family: monospace;
-        }
+        .console-textarea { padding: 0.5rem; border: 1px solid #CBD5E1; border-radius: 8px; font-family: var(--fuente-principal); font-size: 0.85rem; background: #F8FAFC; resize: vertical; height: 75px; }
 
-        .workspace {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 1.25rem;
-            padding: 1.25rem;
-            overflow-y: auto;
-        }
-
-        .workspace-panel {
-            background: #FFFFFF;
-            border-radius: 16px;
-            padding: 1.25rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            border: 1px solid #E2E8F0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.85rem;
-        }
-
-        .panel-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--color-principal);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .video-box {
-            background: #0F172A;
-            border-radius: 12px;
-            height: 520px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #FFFFFF;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #webcamVideo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-
-        .video-placeholder {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .btn-action-video {
-            background-color: var(--color-secundario);
-            color: #FFFFFF;
-            padding: 0.7rem 1.4rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .btn-action-video:hover { background-color: #00A37A; }
-
-        .form-group-console {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .label-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .form-group-console label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--color-principal);
-            text-transform: uppercase;
-        }
-
-        .btn-mic {
-            background: #E2E8F0;
-            color: #1E293B;
-            border: none;
-            padding: 0.2rem 0.5rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            transition: all 0.2s ease;
-        }
-        .btn-mic:hover { background: #CBD5E1; }
-        .btn-mic.recording { background: #EF4444; color: #FFFFFF; animation: pulse 1.5s infinite; }
-
-        .console-textarea {
-            padding: 0.5rem;
-            border: 1px solid #CBD5E1;
-            border-radius: 8px;
-            font-family: var(--fuente-principal);
-            font-size: 0.85rem;
-            background: #F8FAFC;
-            resize: vertical;
-            height: 75px;
-        }
-
-        .patient-info-box {
-            background: #F8FAFC;
-            padding: 0.75rem;
-            border-radius: 10px;
-            border: 1px solid #E2E8F0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
+        .patient-info-box { background: #F8FAFC; padding: 0.75rem; border-radius: 10px; border: 1px solid #E2E8F0; display: flex; flex-direction: column; gap: 0.25rem; }
         .patient-info-box span { font-size: 0.8rem; color: #475569; }
 
-        .exam-badge {
-            background: #EEF2F6;
-            border: 1px solid #CBD5E1;
-            padding: 0.4rem 0.75rem;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.82rem;
-            color: var(--color-principal);
-            font-weight: 600;
-        }
+        .exam-badge { background: #EEF2F6; border: 1px solid #CBD5E1; padding: 0.4rem 0.75rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--color-principal); font-weight: 600; }
+        .btn-view-exam { background: var(--color-principal); color: #FFFFFF; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.75rem; border: none; cursor: pointer; }
 
-        .btn-view-exam {
-            background: var(--color-principal);
-            color: #FFFFFF;
-            padding: 0.25rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            text-decoration: none;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-view-exam:hover { background: #003652; }
+        #examViewerBox { display: none; background: #F8FAFC; border: 2px solid var(--color-principal); border-radius: 10px; padding: 1rem; flex-direction: column; gap: 0.75rem; }
 
-        #examViewerBox {
-            display: none;
-            background: #F8FAFC;
-            border: 2px solid var(--color-principal);
-            border-radius: 10px;
-            padding: 1rem;
-            flex-direction: column;
-            gap: 0.75rem;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .btn-send-whatsapp {
-            background-color: #25D366;
-            color: #FFFFFF;
-            padding: 0.65rem;
-            border-radius: 10px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: background 0.3s ease;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            width: 100%;
-        }
-        .btn-send-whatsapp:hover { background-color: #1EBE5D; }
-
-        .btn-save-record {
-            background-color: var(--color-principal);
-            color: #FFFFFF;
-            padding: 0.65rem;
-            border-radius: 10px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: background 0.3s ease;
-            text-align: center;
-            display: block;
-            width: 100%;
-        }
-        .btn-save-record:hover { background-color: #003652; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        @media (max-width: 1024px) {
-            .console-container { grid-template-columns: 1fr; height: auto; }
-            .workspace { grid-template-columns: 1fr; }
-        }
+        .btn-send-whatsapp { background-color: #25D366; color: #FFFFFF; padding: 0.65rem; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; font-size: 0.85rem; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.4rem; width: 100%; }
+        .btn-save-record { background-color: var(--color-principal); color: #FFFFFF; padding: 0.65rem; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; font-size: 0.85rem; text-align: center; display: block; width: 100%; }
     </style>
 </head>
 <body>
@@ -364,28 +86,14 @@
 
     <div class="console-container">
         
-        <!-- AGENDA Y CONTROLES DE TIEMPO -->
+        <!-- AGENDA DINÁMICA LOCAL -->
         <aside class="sidebar-agenda">
             <div>
                 <div class="sidebar-header">
-                    <h3>📅 Pacientes en Espera (Hoy)</h3>
+                    <h3>📅 Pacientes en Espera</h3>
                 </div>
-                <div class="patient-list" id="patientList">
-                    <div class="patient-item active" onclick="loadPatient(0)">
-                        <span class="patient-time">15:00 - 15:30 hrs</span>
-                        <span class="patient-name">Marcela Ríos</span>
-                        <span class="patient-reason">Control general y exámenes</span>
-                    </div>
-                    <div class="patient-item" onclick="loadPatient(1)">
-                        <span class="patient-time">16:00 - 16:30 hrs</span>
-                        <span class="patient-name">Rodrigo Vera</span>
-                        <span class="patient-reason">Dolor lumbar y receta</span>
-                    </div>
-                    <div class="patient-item" onclick="loadPatient(2)">
-                        <span class="patient-time">17:00 - 17:30 hrs</span>
-                        <span class="patient-name">Andrea Morales</span>
-                        <span class="patient-reason">Control sano / respiratorio</span>
-                    </div>
+                <div class="patient-list" id="patientListContainer">
+                    <!-- Las reservas hechas en index.html aparecerán aquí automáticamente -->
                 </div>
             </div>
 
@@ -394,11 +102,11 @@
                     <div class="timers-row">
                         <div class="timer-card">
                             <div class="timer-title">Inicio</div>
-                            <div class="timer-value" id="startTimeDisplay">15:00</div>
+                            <div class="timer-value" id="startTimeDisplay">--:--</div>
                         </div>
                         <div class="timer-card">
                             <div class="timer-title">Término</div>
-                            <div class="timer-value" id="endTimeDisplay">15:30</div>
+                            <div class="timer-value" id="endTimeDisplay">--:--</div>
                         </div>
                     </div>
                 </div>
@@ -413,11 +121,10 @@
         <!-- ESPACIO DE TRABAJO -->
         <main class="workspace">
             
-            <!-- Panel Izquierdo: Videocámara -->
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>1. Videoconsulta en Pantalla</span>
-                    <span id="activePatientTag" style="font-size: 0.75rem; color: #007A5C; background: #E6F8F3; padding: 0.2rem 0.5rem; border-radius: 12px;">Atendiendo a: Marcela Ríos</span>
+                    <span id="activePatientTag" style="font-size: 0.75rem; color: #007A5C; background: #E6F8F3; padding: 0.2rem 0.5rem; border-radius: 12px;">Seleccione un paciente</span>
                 </div>
                 
                 <div class="video-box" id="videoContainer">
@@ -429,37 +136,34 @@
                 </div>
             </div>
 
-            <!-- Panel Derecho: Ficha, Dictado por Voz Inteligente y Receta -->
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>2. Ficha y Exámenes del Paciente</span>
                 </div>
 
                 <div class="patient-info-box">
-                    <span id="infoRut"><strong>RUT:</strong> 14.567.890-k</span>
-                    <span id="infoReason"><strong>Motivo:</strong> Control general de salud y revisión de exámenes preventivos.</span>
+                    <span id="infoRut"><strong>RUT:</strong> --</span>
+                    <span id="infoReason"><strong>Motivo:</strong> --</span>
                 </div>
 
-                <!-- Visor de Exámenes -->
                 <div class="form-group-console">
                     <label>Exámenes / Informes Adjuntos</label>
                     <div class="exam-badge">
-                        <span id="examName">📄 Lab_Sangre_Preventivo.pdf</span>
+                        <span id="examName">📄 Ningún examen adjunto</span>
                         <button onclick="toggleExamViewer()" class="btn-view-exam" id="btnViewExamText">🔍 Ver Examen</button>
                     </div>
                 </div>
 
                 <div id="examViewerBox">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <strong style="font-size: 0.82rem; color: var(--color-principal);" id="viewerHeaderTitle">Vista Previa del Examen</strong>
-                        <button onclick="toggleExamViewer()" style="background: none; border: none; font-weight: 800; cursor: pointer; color: #64748B; font-size: 0.9rem;">✕</button>
+                        <strong style="font-size: 0.82rem; color: var(--color-principal);" id="viewerHeaderTitle">Vista Previa</strong>
+                        <button onclick="toggleExamViewer()" style="background: none; border: none; font-weight: 800; cursor: pointer;">✕</button>
                     </div>
                     <div style="background: #FFFFFF; padding: 0.75rem; border-radius: 6px; border: 1px solid #CBD5E1; text-align: center;">
-                        <p style="font-size: 0.8rem; color: #475569;" id="viewerContentDesc">Documento clínico oficial cargado para análisis médico en línea.</p>
+                        <p style="font-size: 0.8rem; color: #475569;" id="viewerContentDesc">Documento clínico oficial cargado para análisis médico.</p>
                     </div>
                 </div>
 
-                <!-- Notas Clínicas con Dictado por Voz -->
                 <div class="form-group-console">
                     <div class="label-header">
                         <label>Notas Clínicas / Anamnesis</label>
@@ -468,13 +172,12 @@
                     <textarea id="clinicalNotes" class="console-textarea" placeholder="Registra síntomas o dicta con el micrófono..."></textarea>
                 </div>
 
-                <!-- Receta Médica con Dictado por Voz Limpio e Inteligente -->
                 <div class="form-group-console">
                     <div class="label-header">
                         <label>Receta Médica / Indicaciones</label>
                         <button type="button" class="btn-mic" onclick="toggleVoiceDictation('prescriptionText', this)">🎤 Dictar Receta</button>
                     </div>
-                    <textarea id="prescriptionText" class="console-textarea" placeholder="Dicta la prescripción médica (Ej: Aspirina 100mg cada 24 horas)..."></textarea>
+                    <textarea id="prescriptionText" class="console-textarea" placeholder="Dicta la prescripción médica..."></textarea>
                 </div>
 
                 <button onclick="sendPrescriptionWhatsApp()" class="btn-send-whatsapp">
@@ -488,7 +191,10 @@
     </div>
 
     <script>
-        // Reloj Digital en Tiempo Real
+        let patientsData = [];
+        let currentPatientIndex = 0;
+
+        // Reloj en tiempo real
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -499,64 +205,68 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        const patientsData = [
-            {
-                name: "Marcela Ríos",
-                startTime: "15:00",
-                endTime: "15:30",
-                rut: "14.567.890-k",
-                email: "marcela.rios@ejemplo.cl",
-                reason: "Control general de salud y revisión de exámenes preventivos.",
-                phone: "56900000000",
-                exam: "📄 Lab_Sangre_Preventivo.pdf"
-            },
-            {
-                name: "Rodrigo Vera",
-                startTime: "16:00",
-                endTime: "16:30",
-                rut: "12.345.678-9",
-                email: "rodrigo.vera@ejemplo.cl",
-                reason: "Dolor lumbar leve y solicitud de receta crónica.",
-                phone: "56900000000",
-                exam: "📄 Resonancia_Lumbar_Informe.pdf"
-            },
-            {
-                name: "Andrea Morales",
-                startTime: "17:00",
-                endTime: "17:30",
-                rut: "16.789.012-3",
-                email: "andrea.morales@ejemplo.cl",
-                reason: "Control sano y orientación sobre síntomas respiratorios leves.",
-                phone: "56900000000",
-                exam: "📄 Radiografia_Torax.pdf"
+        // Cargar citas desde el almacenamiento local compartido del navegador
+        function loadAppointments() {
+            const saved = localStorage.getItem('teledoc_appointments');
+            if (saved) {
+                const allAppointments = JSON.parse(saved);
+                // Filtrar solo las de la Dra. Jennie
+                patientsData = allAppointments.filter(app => app.doctorKey === 'jennie');
             }
-        ];
 
-        let currentPatientIndex = 0;
+            // Si no hay ninguna cita registrada aún, colocamos una de prueba por defecto
+            if (patientsData.length === 0) {
+                patientsData = [
+                    {
+                        doctorKey: "jennie",
+                        doctorName: "Dra. Jennie Guzmán Tapia",
+                        date: "2026-10-25",
+                        startTime: "15:00",
+                        endTime: "15:30",
+                        patientName: "Marcela Ríos (Ejemplo)",
+                        patientRut: "14.567.890-k",
+                        patientEmail: "marcela@ejemplo.cl",
+                        patientReason: "Control general de salud y revisión de exámenes preventivos.",
+                        exam: "📄 Lab_Sangre_Preventivo.pdf"
+                    }
+                ];
+            }
+
+            renderPatientList();
+            loadPatient(0);
+        }
+
+        function renderPatientList() {
+            const container = document.getElementById('patientListContainer');
+            container.innerHTML = patientsData.map((p, idx) => `
+                <div class="patient-item ${idx === currentPatientIndex ? 'active' : ''}" onclick="loadPatient(${idx})">
+                    <span class="patient-time">${p.startTime} - ${p.endTime} hrs</span>
+                    <span class="patient-name">${p.patientName}</span>
+                    <span class="patient-reason">${p.patientReason}</span>
+                </div>
+            `).join('');
+        }
 
         function loadPatient(index) {
             currentPatientIndex = index;
             const p = patientsData[index];
+            if (!p) return;
             
-            const items = document.querySelectorAll('.patient-item');
-            items.forEach((item, idx) => {
-                if(idx === index) item.classList.add('active');
-                else item.classList.remove('active');
-            });
+            renderPatientList();
 
-            document.getElementById('activePatientTag').innerText = `Atendiendo a: ${p.name}`;
+            document.getElementById('activePatientTag').innerText = `Atendiendo a: ${p.patientName}`;
             document.getElementById('startTimeDisplay').innerText = p.startTime;
             document.getElementById('endTimeDisplay').innerText = p.endTime;
-            document.getElementById('infoRut').innerHTML = `<strong>RUT:</strong> ${p.rut}`;
-            document.getElementById('infoReason').innerHTML = `<strong>Motivo:</strong> ${p.reason}`;
-            document.getElementById('examName').innerText = p.exam;
-            document.getElementById('viewerHeaderTitle').innerText = `Examen: ${p.exam}`;
+            document.getElementById('infoRut').innerHTML = `<strong>RUT:</strong> ${p.patientRut}`;
+            document.getElementById('infoReason').innerHTML = `<strong>Motivo:</strong> ${p.patientReason}`;
+            document.getElementById('examName').innerText = p.exam || "Ninguno";
             document.getElementById('clinicalNotes').value = "";
             document.getElementById('prescriptionText').value = "";
             
             document.getElementById('examViewerBox').style.display = 'none';
-            document.getElementById('btnViewExamText').innerText = "🔍 Ver Examen";
         }
+
+        loadAppointments();
 
         async function startCamera() {
             try {
@@ -572,92 +282,52 @@
 
         function toggleExamViewer() {
             const viewer = document.getElementById('examViewerBox');
-            const btnText = document.getElementById('btnViewExamText');
-            if (viewer.style.display === 'flex') {
-                viewer.style.display = 'none';
-                btnText.innerText = "🔍 Ver Examen";
-            } else {
-                viewer.style.display = 'flex';
-                btnText.innerText = "✕ Ocultar";
-            }
+            viewer.style.display = viewer.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // Sistema de Dictado por Voz Corregido e Inteligente
         let recognition = null;
         function toggleVoiceDictation(elementId, btnElement) {
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                alert('Tu navegador no soporta dictado por voz nativo. Usa Google Chrome.');
+                alert('Usa Google Chrome para el dictado por voz.');
                 return;
             }
-
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            
             if (btnElement.classList.contains('recording')) {
                 if (recognition) recognition.stop();
                 btnElement.classList.remove('recording');
-                btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
                 return;
             }
-
             recognition = new SpeechRecognition();
             recognition.lang = 'es-CL';
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 1;
-
             btnElement.classList.add('recording');
             btnElement.innerHTML = '🔴 Escuchando...';
 
             recognition.onresult = function(event) {
-                const speechResult = event.results[0][0].transcript.trim();
-                const targetArea = document.getElementById(elementId);
-                
-                let processedText = speechResult;
-                
-                // Si es receta, formateamos con viñetas limpias reemplazando texto anterior duplicado
-                if (elementId === 'prescriptionText') {
-                    const capitalized = speechResult.charAt(0).toUpperCase() + speechResult.slice(1);
-                    processedText = `• Fármaco / Prescripción: ${capitalized}\n• Indicación Médica: Según indicación profesional y control periódico.`;
-                }
-
-                // Reemplaza el texto para evitar duplicaciones innecesarias y mostrar el dictado limpio
-                targetArea.value = processedText;
-                
+                const text = event.results[0][0].transcript.trim();
+                const target = document.getElementById(elementId);
+                target.value = elementId === 'prescriptionText' ? `• Fármaco: ${text.charAt(0).toUpperCase() + text.slice(1)}\n• Indicación: Tomar según pauta médica.` : text;
                 btnElement.classList.remove('recording');
                 btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
             };
-
-            recognition.onerror = function() {
-                alert('Error en el reconocimiento de voz. Inténtalo nuevamente.');
-                btnElement.classList.remove('recording');
-                btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
-            };
-
-            recognition.onend = function() {
-                btnElement.classList.remove('recording');
-                btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
-            };
-
+            recognition.onerror = () => btnElement.classList.remove('recording');
+            recognition.onend = () => btnElement.classList.remove('recording');
             recognition.start();
         }
 
         function sendPrescriptionWhatsApp() {
             const p = patientsData[currentPatientIndex];
+            if (!p) return;
             const prescription = document.getElementById('prescriptionText').value.trim();
-            const notes = document.getElementById('clinicalNotes').value.trim();
-
             if (!prescription) {
-                alert('Por favor, redacta o dicta la receta antes de enviarla.');
+                alert('Dicta o redacta la receta antes de enviar.');
                 return;
             }
-
-            const message = `Hola *${p.name}*, le escribe la *Dra. Jennie Guzmán Tapia* desde *TeleDocChile*.\n\nAquí tiene su receta e indicaciones médicas de su consulta:\n\n*Indicaciones y Fármacos:*\n${prescription}\n\n*Notas de atención:*\n${notes || 'Ninguna'}\n\nGuarde este mensaje para presentar en farmacia o centro de salud. ¡Que se mejore!`;
-            
-            const url = `https://wa.me/${p.phone}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+            const message = `Hola *${p.patientName}*, le escribe la *Dra. Jennie Guzmán Tapia* desde *TeleDocChile*.\n\nReceta:\n${prescription}`;
+            window.open(`https://wa.me/56900000000?text=${encodeURIComponent(message)}`, '_blank');
         }
 
         function saveRecord() {
-            alert('¡Ficha clínica y receta aprobadas y guardadas correctamente en el sistema!');
+            alert('¡Ficha clínica guardada con éxito!');
         }
     </script>
 </body>
