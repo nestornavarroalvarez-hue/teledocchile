@@ -69,7 +69,6 @@
         .patient-list {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
         }
 
         .patient-item {
@@ -89,24 +88,48 @@
         .patient-name { font-size: 0.95rem; font-weight: 700; color: var(--color-principal); }
         .patient-reason { font-size: 0.8rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .digital-clock-box {
-            background: #F8FAFC;
+        /* Panel de Control de Tiempos en Barra Lateral */
+        .sidebar-timer-section {
+            background: #F1F5F9;
             border-top: 1px solid #E2E8F0;
-            padding: 1.25rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .timer-card {
+            background: #FFFFFF;
+            padding: 0.75rem;
+            border-radius: 10px;
+            border: 1px solid #CBD5E1;
             text-align: center;
         }
 
-        .clock-label {
-            font-size: 0.7rem;
+        .timer-title {
+            font-size: 0.68rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             color: #64748B;
             font-weight: 700;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .timer-value {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--color-principal);
+        }
+
+        .digital-clock-box {
+            background: #FFFFFF;
+            border-top: 1px solid #E2E8F0;
+            padding: 1rem;
+            text-align: center;
         }
 
         .clock-time {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--color-principal);
             font-family: monospace;
@@ -140,10 +163,11 @@
             align-items: center;
         }
 
+        /* Pantalla de video ampliada hacia abajo */
         .video-box {
             background: #0F172A;
             border-radius: 12px;
-            height: 440px;
+            height: 520px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -200,7 +224,7 @@
             font-size: 0.85rem;
             background: #F8FAFC;
             resize: vertical;
-            height: 70px;
+            height: 65px;
         }
 
         .patient-info-box {
@@ -236,7 +260,7 @@
             font-size: 0.75rem;
             text-decoration: none;
             font-weight: 700;
-            cursor: border;
+            cursor: pointer;
             border: none;
         }
         .btn-view-exam:hover { background: #003652; }
@@ -276,6 +300,29 @@
         }
         .btn-save-record:hover { background-color: #003652; }
 
+        /* Modal para Visor de Exámenes */
+        .exam-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .exam-modal-content {
+            background: #FFFFFF;
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 25px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
         @media (max-width: 1024px) {
             .console-container { grid-template-columns: 1fr; height: auto; }
             .workspace { grid-template-columns: 1fr; }
@@ -291,7 +338,7 @@
 
     <div class="console-container">
         
-        <!-- AGENDA Y RELOJ DIGITAL -->
+        <!-- AGENDA Y CONTROLES DE TIEMPO LATERALES -->
         <aside class="sidebar-agenda">
             <div>
                 <div class="sidebar-header">
@@ -316,10 +363,23 @@
                 </div>
             </div>
 
-            <!-- Módulo de Reloj Digital -->
-            <div class="digital-clock-box">
-                <div class="clock-label">Hora Local Actual</div>
-                <div class="clock-time" id="digitalClock">00:00:00</div>
+            <!-- Bloque de Horarios de la Consulta Activa + Reloj -->
+            <div>
+                <div class="sidebar-timer-section">
+                    <div class="timer-card">
+                        <div class="timer-title">Hora de Inicio</div>
+                        <div class="timer-value" id="startTimeDisplay">15:00 hrs</div>
+                    </div>
+                    <div class="timer-card">
+                        <div class="timer-title">Hora de Término Programada</div>
+                        <div class="timer-value" id="endTimeDisplay">15:30 hrs</div>
+                    </div>
+                </div>
+
+                <div class="digital-clock-box">
+                    <div style="font-size: 0.68rem; text-transform: uppercase; color: #64748B; font-weight: 700; margin-bottom: 0.15rem;">Hora Local Actual</div>
+                    <div class="clock-time" id="digitalClock">00:00:00</div>
+                </div>
             </div>
         </aside>
 
@@ -349,12 +409,11 @@
                 </div>
 
                 <div class="patient-info-box">
-                    <span id="infoSchedule"><strong>Horario Programado:</strong> 15:00 - 15:30 hrs</span>
                     <span id="infoRut"><strong>RUT:</strong> 14.567.890-k</span>
                     <span id="infoReason"><strong>Motivo:</strong> Control general de salud y revisión de exámenes preventivos.</span>
                 </div>
 
-                <!-- Visor de Exámenes Adjuntos -->
+                <!-- Visor de Exámenes Adjuntos Activo -->
                 <div class="form-group-console">
                     <label>Exámenes / Informes Adjuntos</label>
                     <div class="exam-badge">
@@ -383,6 +442,18 @@
         </main>
     </div>
 
+    <!-- Modal Visor de Examen -->
+    <div id="examModal" class="exam-modal">
+        <div class="exam-modal-content">
+            <h3 id="modalExamTitle" style="color: var(--color-principal);">Visualización de Examen</h3>
+            <div style="background: #F8FAFC; padding: 1.5rem; border-radius: 10px; border: 1px solid #CBD5E1; text-align: center;">
+                <p style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem;" id="modalExamDesc">Aquí se despliega el informe o imagen del examen adjunto del paciente seleccionado para su análisis médico en línea.</p>
+                <div style="font-size: 3rem;">📋</div>
+            </div>
+            <button onclick="closeExamModal()" class="btn-save-record" style="margin-top: 0.5rem;">Cerrar Visor</button>
+        </div>
+    </div>
+
     <script>
         // Reloj Digital en Tiempo Real
         function updateClock() {
@@ -398,7 +469,8 @@
         const patientsData = [
             {
                 name: "Marcela Ríos",
-                time: "15:00 - 15:30 hrs",
+                startTime: "15:00 hrs",
+                endTime: "15:30 hrs",
                 rut: "14.567.890-k",
                 email: "marcela.rios@ejemplo.cl",
                 reason: "Control general de salud y revisión de exámenes preventivos.",
@@ -407,7 +479,8 @@
             },
             {
                 name: "Rodrigo Vera",
-                time: "16:00 - 16:30 hrs",
+                startTime: "16:00 hrs",
+                endTime: "16:30 hrs",
                 rut: "12.345.678-9",
                 email: "rodrigo.vera@ejemplo.cl",
                 reason: "Dolor lumbar leve y solicitud de receta crónica.",
@@ -416,7 +489,8 @@
             },
             {
                 name: "Andrea Morales",
-                time: "17:00 - 17:30 hrs",
+                startTime: "17:00 hrs",
+                endTime: "17:30 hrs",
                 rut: "16.789.012-3",
                 email: "andrea.morales@ejemplo.cl",
                 reason: "Control sano y orientación sobre síntomas respiratorios leves.",
@@ -438,7 +512,8 @@
             });
 
             document.getElementById('activePatientTag').innerText = `Atendiendo a: ${p.name}`;
-            document.getElementById('infoSchedule').innerHTML = `<strong>Horario Programado:</strong> ${p.time}`;
+            document.getElementById('startTimeDisplay').innerText = p.startTime;
+            document.getElementById('endTimeDisplay').innerText = p.endTime;
             document.getElementById('infoRut').innerHTML = `<strong>RUT:</strong> ${p.rut}`;
             document.getElementById('infoReason').innerHTML = `<strong>Motivo:</strong> ${p.reason}`;
             document.getElementById('examName').innerText = p.exam;
@@ -460,7 +535,13 @@
 
         function viewExam() {
             const p = patientsData[currentPatientIndex];
-            alert(`Visualizando el documento de examen adjunto para ${p.name}:\n\n- Archivo: ${p.exam}\n- Estado: Cargado desde la ficha del paciente.`);
+            document.getElementById('modalExamTitle').innerText = `Examen: ${p.exam}`;
+            document.getElementById('modalExamDesc').innerText = `Visualizando el documento clínico oficial adjunto por ${p.name} para su análisis durante la teleconsulta.`;
+            document.getElementById('examModal').style.display = 'flex';
+        }
+
+        function closeExamModal() {
+            document.getElementById('examModal').style.display = 'none';
         }
 
         function sendPrescriptionWhatsApp() {
