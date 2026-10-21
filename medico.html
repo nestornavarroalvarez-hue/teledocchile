@@ -9,7 +9,7 @@
         :root {
             --color-principal: #004D73;
             --color-secundario: #00C897;
-            --color-fondo: #0F172A; /* Fondo oscuro tipo consola clínica */
+            --color-fondo: #0F172A;
             --color-panel: #1E293B;
             --color-texto: #F8FAFC;
             --fuente-principal: 'Inter', sans-serif;
@@ -31,7 +31,6 @@
             overflow: hidden;
         }
 
-        /* Cabecera de la Consola */
         .console-header {
             background: var(--color-panel);
             padding: 0.75rem 2rem;
@@ -67,7 +66,6 @@
             box-shadow: 0 0 8px var(--color-secundario);
         }
 
-        /* Contenedor Principal de Doble Pantalla */
         .workspace {
             display: grid;
             grid-template-columns: 1.3fr 0.7fr;
@@ -77,7 +75,6 @@
             height: calc(100vh - 60px);
         }
 
-        /* Panel Izquierdo: Videollamada */
         .video-panel {
             background: #000000;
             border-radius: 16px;
@@ -101,18 +98,6 @@
             height: 100%;
             object-fit: cover;
             opacity: 0.85;
-        }
-
-        .doctor-pip {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 180px;
-            height: 120px;
-            background: #334155;
-            border-radius: 10px;
-            border: 2px solid var(--color-secundario);
-            object-fit: cover;
         }
 
         .video-controls {
@@ -148,7 +133,6 @@
             background: #DC2626;
         }
 
-        /* Panel Derecho: Herramientas Clínicas con Pestañas */
         .clinical-panel {
             background: var(--color-panel);
             border-radius: 16px;
@@ -193,7 +177,7 @@
         }
 
         .tab-content.active {
-            display: flex;
+            display: flex !important;
         }
 
         .clinical-card {
@@ -249,22 +233,10 @@
         .btn-action:hover {
             background-color: #00B084;
         }
-
-        @media (max-width: 1024px) {
-            .workspace {
-                grid-template-columns: 1fr;
-                height: auto;
-                overflow-y: auto;
-            }
-            body {
-                overflow-y: auto;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Cabecera de la Consola -->
     <header class="console-header">
         <div class="console-logo">TeleDoc<span>Chile</span> — Consola Médica</div>
         <div class="doctor-status">
@@ -273,35 +245,30 @@
         </div>
     </header>
 
-    <!-- Área de Trabajo de Doble Pantalla -->
     <div class="workspace">
         
-        <!-- Panel Izquierdo: Video en Vivo -->
+        <!-- Panel Izquierdo: Video -->
         <div class="video-panel">
             <div class="video-feed">
-                <!-- Simulación de video del paciente en consulta -->
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" alt="Paciente en consulta" class="patient-video-mock">
-                <!-- Recuadro flotante con la cámara del médico (PiP) -->
-                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=300&auto=format&fit=crop" alt="Cámara del médico" class="doctor-pip">
             </div>
             <div class="video-controls">
-                <button class="control-btn" onclick="toggleAudio()">🎤 Silenciar</button>
-                <button class="control-btn" onclick="toggleVideo()"> камера Apagar Cámara</button>
-                <button class="control-btn" onclick="alert('Compartiendo pantalla con exámenes...')">📊 Compartir Exámenes</button>
-                <button class="control-btn danger" onclick="endCall()">🔴 Finalizar Consulta</button>
+                <button class="control-btn" onclick="alert('Micrófono silenciado')">🎤 Silenciar</button>
+                <button class="control-btn" onclick="alert('Cámara apagada')">📹 Apagar Cámara</button>
+                <button class="control-btn" onclick="alert('Compartiendo exámenes...')">📊 Compartir Exámenes</button>
+                <button class="control-btn danger" onclick="if(confirm('¿Finalizar consulta?')) window.location.href='index.html';">🔴 Finalizar</button>
             </div>
         </div>
 
-        <!-- Panel Derecho: Herramientas Clínicas e Historial -->
+        <!-- Panel Derecho: Herramientas Clínicas -->
         <div class="clinical-panel">
-            <!-- Pestañas de Navegación del Médico -->
             <div class="tabs-header">
-                <button class="tab-btn active" onclick="switchTab('ficha', this)">Ficha Paciente</button>
-                <button class="tab-btn" onclick="switchTab('examenes', this)">Exámenes</button>
-                <button class="tab-btn" onclick="switchTab('receta', this)">Receta / Notas</button>
+                <button class="tab-btn active" id="btn-ficha" onclick="switchTab('ficha')">Ficha Paciente</button>
+                <button class="tab-btn" id="btn-examenes" onclick="switchTab('examenes')">Exámenes</button>
+                <button class="tab-btn" id="btn-receta" onclick="switchTab('receta')">Receta / Notas</button>
             </div>
 
-            <!-- Contenido Pestaña 1: Ficha del Paciente -->
+            <!-- Ficha -->
             <div id="ficha" class="tab-content active">
                 <div class="clinical-card">
                     <h4>Datos del Paciente</h4>
@@ -310,83 +277,60 @@
                     <div class="info-row"><strong>Edad:</strong> 45 años</div>
                     <div class="info-row"><strong>Correo:</strong> juan.perez@ejemplo.cl</div>
                 </div>
-
                 <div class="clinical-card">
                     <h4>Motivo de Consulta (Declarado)</h4>
-                    <p style="color: #E2E8F0; font-size: 0.95rem; line-height: 1.5;">
-                        "Control de presión arterial elevada durante los últimos 3 días y leve cefalea matutina."
-                    </p>
-                </div>
-
-                <div class="clinical-card">
-                    <h4>Antecedentes Médicos</h4>
-                    <p style="color: #94A3B8; font-size: 0.9rem;">Hipertensión arterial en tratamiento leve. Sin alergias medicamentosas conocidas.</p>
+                    <p style="color: #E2E8F0; font-size: 0.95rem;">"Control de presión arterial elevada durante los últimos 3 días y leve cefalea matutina."</p>
                 </div>
             </div>
 
-            <!-- Contenido Pestaña 2: Exámenes e Historial -->
-            <div id="examenes" class="tab-content">
+            <!-- Exámenes -->
+            <div id="examenes" class="tab-content" style="display: none;">
                 <div class="clinical-card">
                     <h4>Exámenes Adjuntos del Paciente</h4>
-                    <p style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">Documentos enviados por el paciente para esta sesión:</p>
+                    <p style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">Documentos enviados para esta sesión:</p>
                     <div style="background: #1E293B; padding: 0.75rem; border-radius: 6px; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
                         <span>📄 Presurometría_Holter_2026.pdf</span>
-                        <button onclick="alert('Abriendo documento adjunto...')" style="background: var(--color-principal); color: #FFF; border: none; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Ver</button>
-                    </div>
-                    <div style="background: #1E293B; padding: 0.75rem; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>📄 Examen_Sangre_Perfil_Bioquimico.pdf</span>
-                        <button onclick="alert('Abriendo documento adjunto...')" style="background: var(--color-principal); color: #FFF; border: none; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Ver</button>
+                        <button onclick="alert('Abriendo documento...')" style="background: var(--color-principal); color: #FFF; border: none; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Ver</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Contenido Pestaña 3: Receta y Notas Médicas -->
-            <div id="receta" class="tab-content">
+            <!-- Receta -->
+            <div id="receta" class="tab-content" style="display: none;">
                 <div class="clinical-card" style="flex-grow: 1; display: flex; flex-direction: column;">
                     <h4>Redacción de Receta / Indicaciones</h4>
-                    <p style="color: #94A3B8; font-size: 0.85rem; margin-bottom: 0.5rem;">Escribe aquí las indicaciones que se enviarán al paciente:</p>
-                    <textarea class="clinical-textarea" placeholder="1. Losartán 50mg cada 24 hrs...&#10;2. Control en 14 días..."></textarea>
-                    <button class="btn-action" onclick="alert('Receta electrónica generada y enviada al correo del paciente con éxito.')">Generar y Enviar Receta Electrónica</button>
+                    <textarea class="clinical-textarea" placeholder="Escribe aquí las indicaciones..."></textarea>
+                    <button class="btn-action" onclick="alert('Receta generada y enviada con éxito.')">Generar y Enviar Receta</button>
                 </div>
             </div>
 
         </div>
-
     </div>
 
-    <!-- Script de Interacción de Pestañas y Controles -->
     <script>
-        function switchTab(tabId, btnElement) {
-            // Ocultar todos los contenidos
-            const contents = document.getElementsByClassName('tab-content');
-            for (let content of contents) {
-                content.classList.remove('active');
-            }
-            // Desactivar todos los botones
-            const buttons = document.getElementsByClassName('tab-btn');
-            for (let btn of buttons) {
-                btn.classList.remove('active');
-            }
-            // Activar la pestaña seleccionada
-            document.getElementById(tabId).classList.add('active');
-            btnElement.classList.add('active');
-        }
+        function switchTab(tabName) {
+            // Ocultar contenidos
+            document.getElementById('ficha').style.display = 'none';
+            document.getElementById('examenes').style.display = 'none';
+            document.getElementById('receta').style.display = 'none';
 
-        function toggleAudio() {
-            alert('Micrófono silenciado/activado.');
-        }
+            // Quitar clase active a botones
+            document.getElementById('btn-ficha').classList.remove('active');
+            document.getElementById('btn-examenes').classList.remove('active');
+            document.getElementById('btn-receta').classList.remove('active');
 
-        function toggleVideo() {
-            alert('Cámara encendida/apagada.');
-        }
-
-        function endCall() {
-            if (confirm('¿Estás seguro de finalizar la teleconsulta? Se guardará el registro en la plataforma.')) {
-                alert('Consulta finalizada con éxito. Volviendo al panel principal.');
-                window.location.href = 'index.html';
+            // Mostrar el seleccionado
+            if(tabName === 'ficha') {
+                document.getElementById('ficha').style.display = 'flex';
+                document.getElementById('btn-ficha').classList.add('active');
+            } else if(tabName === 'examenes') {
+                document.getElementById('examenes').style.display = 'flex';
+                document.getElementById('btn-examenes').classList.add('active');
+            } else if(tabName === 'receta') {
+                document.getElementById('receta').style.display = 'flex';
+                document.getElementById('btn-receta').classList.add('active');
             }
         }
     </script>
-
 </body>
 </html>
