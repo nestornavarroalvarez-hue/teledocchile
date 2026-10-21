@@ -88,7 +88,7 @@
         .patient-name { font-size: 0.95rem; font-weight: 700; color: var(--color-principal); }
         .patient-reason { font-size: 0.8rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* Panel de Control de Tiempos en Barra Lateral */
+        /* Contenedor de Horarios en Paralelo y Reloj Lateral */
         .sidebar-timer-section {
             background: #F1F5F9;
             border-top: 1px solid #E2E8F0;
@@ -98,25 +98,31 @@
             gap: 0.75rem;
         }
 
+        .timers-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
         .timer-card {
             background: #FFFFFF;
-            padding: 0.75rem;
-            border-radius: 10px;
+            padding: 0.5rem;
+            border-radius: 8px;
             border: 1px solid #CBD5E1;
             text-align: center;
         }
 
         .timer-title {
-            font-size: 0.68rem;
+            font-size: 0.58rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             color: #64748B;
             font-weight: 700;
-            margin-bottom: 0.15rem;
+            margin-bottom: 0.1rem;
         }
 
         .timer-value {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 800;
             color: var(--color-principal);
         }
@@ -124,12 +130,12 @@
         .digital-clock-box {
             background: #FFFFFF;
             border-top: 1px solid #E2E8F0;
-            padding: 1rem;
+            padding: 0.85rem;
             text-align: center;
         }
 
         .clock-time {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: var(--color-principal);
             font-family: monospace;
@@ -163,7 +169,7 @@
             align-items: center;
         }
 
-        /* Pantalla de video ampliada hacia abajo */
+        /* Pantalla de video sin interferencias */
         .video-box {
             background: #0F172A;
             border-radius: 12px;
@@ -265,6 +271,18 @@
         }
         .btn-view-exam:hover { background: #003652; }
 
+        /* Visor de Exámenes Integrado (dentro del panel derecho, sin tapar cámara) */
+        #examViewerBox {
+            display: none;
+            background: #F8FAFC;
+            border: 2px solid var(--color-principal);
+            border-radius: 10px;
+            padding: 1rem;
+            flex-direction: column;
+            gap: 0.75rem;
+            animation: fadeIn 0.3s ease;
+        }
+
         .btn-send-whatsapp {
             background-color: #25D366;
             color: #FFFFFF;
@@ -300,27 +318,9 @@
         }
         .btn-save-record:hover { background-color: #003652; }
 
-        /* Modal para Visor de Exámenes */
-        .exam-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-        }
-        .exam-modal-content {
-            background: #FFFFFF;
-            padding: 2rem;
-            border-radius: 16px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 20px 25px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 1024px) {
@@ -363,21 +363,23 @@
                 </div>
             </div>
 
-            <!-- Bloque de Horarios de la Consulta Activa + Reloj -->
+            <!-- Bloque de Horarios Paralelos + Reloj Local -->
             <div>
                 <div class="sidebar-timer-section">
-                    <div class="timer-card">
-                        <div class="timer-title">Hora de Inicio</div>
-                        <div class="timer-value" id="startTimeDisplay">15:00 hrs</div>
-                    </div>
-                    <div class="timer-card">
-                        <div class="timer-title">Hora de Término Programada</div>
-                        <div class="timer-value" id="endTimeDisplay">15:30 hrs</div>
+                    <div class="timers-row">
+                        <div class="timer-card">
+                            <div class="timer-title">Inicio</div>
+                            <div class="timer-value" id="startTimeDisplay">15:00</div>
+                        </div>
+                        <div class="timer-card">
+                            <div class="timer-title">Término</div>
+                            <div class="timer-value" id="endTimeDisplay">15:30</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="digital-clock-box">
-                    <div style="font-size: 0.68rem; text-transform: uppercase; color: #64748B; font-weight: 700; margin-bottom: 0.15rem;">Hora Local Actual</div>
+                    <div style="font-size: 0.62rem; text-transform: uppercase; color: #64748B; font-weight: 700; margin-bottom: 0.1rem;">Hora Local Actual</div>
                     <div class="clock-time" id="digitalClock">00:00:00</div>
                 </div>
             </div>
@@ -386,7 +388,7 @@
         <!-- ESPACIO DE TRABAJO EN PANTALLA DIVIDIDA -->
         <main class="workspace">
             
-            <!-- Panel Izquierdo: Videocámara en Vivo Ampliada -->
+            <!-- Panel Izquierdo: Videocámara en Vivo (Libre de Modales) -->
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>1. Videoconsulta en Pantalla</span>
@@ -402,7 +404,7 @@
                 </div>
             </div>
 
-            <!-- Panel Derecho: Ficha Clínica, Exámenes y Receta -->
+            <!-- Panel Derecho: Ficha, Visor de Exámenes Integrado y Receta -->
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>2. Ficha y Exámenes del Paciente</span>
@@ -413,12 +415,23 @@
                     <span id="infoReason"><strong>Motivo:</strong> Control general de salud y revisión de exámenes preventivos.</span>
                 </div>
 
-                <!-- Visor de Exámenes Adjuntos Activo -->
+                <!-- Visor de Exámenes Adjuntos Integrado (En Panel Derecho) -->
                 <div class="form-group-console">
                     <label>Exámenes / Informes Adjuntos</label>
                     <div class="exam-badge">
                         <span id="examName">📄 Lab_Sangre_Preventivo.pdf</span>
-                        <button onclick="viewExam()" class="btn-view-exam">🔍 Ver Examen</button>
+                        <button onclick="toggleExamViewer()" class="btn-view-exam" id="btnViewExamText">🔍 Ver Examen</button>
+                    </div>
+                </div>
+
+                <!-- Cuadro Desplegable Interno del Examen -->
+                <div id="examViewerBox">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong style="font-size: 0.82rem; color: var(--color-principal);" id="viewerHeaderTitle">Vista Previa del Examen</strong>
+                        <button onclick="toggleExamViewer()" style="background: none; border: none; font-weight: 800; cursor: pointer; color: #64748B; font-size: 0.9rem;">✕</button>
+                    </div>
+                    <div style="background: #FFFFFF; padding: 0.75rem; border-radius: 6px; border: 1px solid #CBD5E1; text-align: center;">
+                        <p style="font-size: 0.8rem; color: #475569;" id="viewerContentDesc">Documento clínico oficial cargado para análisis médico en línea.</p>
                     </div>
                 </div>
 
@@ -442,18 +455,6 @@
         </main>
     </div>
 
-    <!-- Modal Visor de Examen -->
-    <div id="examModal" class="exam-modal">
-        <div class="exam-modal-content">
-            <h3 id="modalExamTitle" style="color: var(--color-principal);">Visualización de Examen</h3>
-            <div style="background: #F8FAFC; padding: 1.5rem; border-radius: 10px; border: 1px solid #CBD5E1; text-align: center;">
-                <p style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem;" id="modalExamDesc">Aquí se despliega el informe o imagen del examen adjunto del paciente seleccionado para su análisis médico en línea.</p>
-                <div style="font-size: 3rem;">📋</div>
-            </div>
-            <button onclick="closeExamModal()" class="btn-save-record" style="margin-top: 0.5rem;">Cerrar Visor</button>
-        </div>
-    </div>
-
     <script>
         // Reloj Digital en Tiempo Real
         function updateClock() {
@@ -469,8 +470,8 @@
         const patientsData = [
             {
                 name: "Marcela Ríos",
-                startTime: "15:00 hrs",
-                endTime: "15:30 hrs",
+                startTime: "15:00",
+                endTime: "15:30",
                 rut: "14.567.890-k",
                 email: "marcela.rios@ejemplo.cl",
                 reason: "Control general de salud y revisión de exámenes preventivos.",
@@ -479,8 +480,8 @@
             },
             {
                 name: "Rodrigo Vera",
-                startTime: "16:00 hrs",
-                endTime: "16:30 hrs",
+                startTime: "16:00",
+                endTime: "16:30",
                 rut: "12.345.678-9",
                 email: "rodrigo.vera@ejemplo.cl",
                 reason: "Dolor lumbar leve y solicitud de receta crónica.",
@@ -489,8 +490,8 @@
             },
             {
                 name: "Andrea Morales",
-                startTime: "17:00 hrs",
-                endTime: "17:30 hrs",
+                startTime: "17:00",
+                endTime: "17:30",
                 rut: "16.789.012-3",
                 email: "andrea.morales@ejemplo.cl",
                 reason: "Control sano y orientación sobre síntomas respiratorios leves.",
@@ -517,8 +518,13 @@
             document.getElementById('infoRut').innerHTML = `<strong>RUT:</strong> ${p.rut}`;
             document.getElementById('infoReason').innerHTML = `<strong>Motivo:</strong> ${p.reason}`;
             document.getElementById('examName').innerText = p.exam;
+            document.getElementById('viewerHeaderTitle').innerText = `Examen: ${p.exam}`;
             document.getElementById('clinicalNotes').value = "";
             document.getElementById('prescriptionText').value = "";
+            
+            // Cerrar visor de examen al cambiar de paciente
+            document.getElementById('examViewerBox').style.display = 'none';
+            document.getElementById('btnViewExamText').innerText = "🔍 Ver Examen";
         }
 
         async function startCamera() {
@@ -533,15 +539,16 @@
             }
         }
 
-        function viewExam() {
-            const p = patientsData[currentPatientIndex];
-            document.getElementById('modalExamTitle').innerText = `Examen: ${p.exam}`;
-            document.getElementById('modalExamDesc').innerText = `Visualizando el documento clínico oficial adjunto por ${p.name} para su análisis durante la teleconsulta.`;
-            document.getElementById('examModal').style.display = 'flex';
-        }
-
-        function closeExamModal() {
-            document.getElementById('examModal').style.display = 'none';
+        function toggleExamViewer() {
+            const viewer = document.getElementById('examViewerBox');
+            const btnText = document.getElementById('btnViewExamText');
+            if (viewer.style.display === 'flex') {
+                viewer.style.display = 'none';
+                btnText.innerText = "🔍 Ver Examen";
+            } else {
+                viewer.style.display = 'flex';
+                btnText.innerText = "✕ Ocultar";
+            }
         }
 
         function sendPrescriptionWhatsApp() {
