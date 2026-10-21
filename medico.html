@@ -88,7 +88,6 @@
         .patient-name { font-size: 0.95rem; font-weight: 700; color: var(--color-principal); }
         .patient-reason { font-size: 0.8rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* Contenedor de Horarios en Paralelo y Reloj Lateral */
         .sidebar-timer-section {
             background: #F1F5F9;
             border-top: 1px solid #E2E8F0;
@@ -169,7 +168,6 @@
             align-items: center;
         }
 
-        /* Pantalla de video sin interferencias */
         .video-box {
             background: #0F172A;
             border-radius: 12px;
@@ -215,12 +213,35 @@
             gap: 0.25rem;
         }
 
+        .label-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .form-group-console label {
             font-size: 0.75rem;
             font-weight: 700;
             color: var(--color-principal);
             text-transform: uppercase;
         }
+
+        .btn-mic {
+            background: #E2E8F0;
+            color: #1E293B;
+            border: none;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.2s ease;
+        }
+        .btn-mic:hover { background: #CBD5E1; }
+        .btn-mic.recording { background: #EF4444; color: #FFFFFF; animation: pulse 1.5s infinite; }
 
         .console-textarea {
             padding: 0.5rem;
@@ -271,7 +292,6 @@
         }
         .btn-view-exam:hover { background: #003652; }
 
-        /* Visor de Exámenes Integrado (dentro del panel derecho, sin tapar cámara) */
         #examViewerBox {
             display: none;
             background: #F8FAFC;
@@ -323,6 +343,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
         @media (max-width: 1024px) {
             .console-container { grid-template-columns: 1fr; height: auto; }
             .workspace { grid-template-columns: 1fr; }
@@ -338,7 +364,7 @@
 
     <div class="console-container">
         
-        <!-- AGENDA Y CONTROLES DE TIEMPO LATERALES -->
+        <!-- AGENDA Y CONTROLES DE TIEMPO -->
         <aside class="sidebar-agenda">
             <div>
                 <div class="sidebar-header">
@@ -363,7 +389,6 @@
                 </div>
             </div>
 
-            <!-- Bloque de Horarios Paralelos + Reloj Local -->
             <div>
                 <div class="sidebar-timer-section">
                     <div class="timers-row">
@@ -385,10 +410,10 @@
             </div>
         </aside>
 
-        <!-- ESPACIO DE TRABAJO EN PANTALLA DIVIDIDA -->
+        <!-- ESPACIO DE TRABAJO -->
         <main class="workspace">
             
-            <!-- Panel Izquierdo: Videocámara en Vivo (Libre de Modales) -->
+            <!-- Panel Izquierdo: Videocámara -->
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>1. Videoconsulta en Pantalla</span>
@@ -404,7 +429,7 @@
                 </div>
             </div>
 
-            <!-- Panel Derecho: Ficha, Visor de Exámenes Integrado y Receta -->
+            <!-- Panel Derecho: Ficha, Dictado por Voz y Receta -->
             <div class="workspace-panel">
                 <div class="panel-title">
                     <span>2. Ficha y Exámenes del Paciente</span>
@@ -415,7 +440,7 @@
                     <span id="infoReason"><strong>Motivo:</strong> Control general de salud y revisión de exámenes preventivos.</span>
                 </div>
 
-                <!-- Visor de Exámenes Adjuntos Integrado (En Panel Derecho) -->
+                <!-- Visor de Exámenes -->
                 <div class="form-group-console">
                     <label>Exámenes / Informes Adjuntos</label>
                     <div class="exam-badge">
@@ -424,7 +449,6 @@
                     </div>
                 </div>
 
-                <!-- Cuadro Desplegable Interno del Examen -->
                 <div id="examViewerBox">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <strong style="font-size: 0.82rem; color: var(--color-principal);" id="viewerHeaderTitle">Vista Previa del Examen</strong>
@@ -435,14 +459,22 @@
                     </div>
                 </div>
 
+                <!-- Notas Clínicas con Dictado por Voz -->
                 <div class="form-group-console">
-                    <label>Notas Clínicas / Anamnesis</label>
-                    <textarea id="clinicalNotes" class="console-textarea" placeholder="Registra síntomas o evolución..."></textarea>
+                    <div class="label-header">
+                        <label>Notas Clínicas / Anamnesis</label>
+                        <button type="button" class="btn-mic" onclick="toggleVoiceDictation('clinicalNotes', this)">🎤 Dictar</button>
+                    </div>
+                    <textarea id="clinicalNotes" class="console-textarea" placeholder="Registra síntomas o dicta con el micrófono..."></textarea>
                 </div>
 
+                <!-- Receta Médica con Dictado por Voz y Redacción IA -->
                 <div class="form-group-console">
-                    <label>Receta Médica / Indicaciones</label>
-                    <textarea id="prescriptionText" class="console-textarea" placeholder="Escribe aquí los medicamentos, dosis u órdenes..."></textarea>
+                    <div class="label-header">
+                        <label>Receta Médica / Indicaciones</label>
+                        <button type="button" class="btn-mic" onclick="toggleVoiceDictation('prescriptionText', this)">🎤 Dictar Receta</button>
+                    </div>
+                    <textarea id="prescriptionText" class="console-textarea" placeholder="Dicta los medicamentos y la plataforma los redactará formalmente..."></textarea>
                 </div>
 
                 <button onclick="sendPrescriptionWhatsApp()" class="btn-send-whatsapp">
@@ -522,7 +554,6 @@
             document.getElementById('clinicalNotes').value = "";
             document.getElementById('prescriptionText').value = "";
             
-            // Cerrar visor de examen al cambiar de paciente
             document.getElementById('examViewerBox').style.display = 'none';
             document.getElementById('btnViewExamText').innerText = "🔍 Ver Examen";
         }
@@ -551,13 +582,67 @@
             }
         }
 
+        // Sistema de Dictado por Voz con IA simulada de redacción médica
+        let recognition = null;
+        function toggleVoiceDictation(elementId, btnElement) {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Tu navegador no soporta dictado por voz nativo. Usa Google Chrome.');
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (btnElement.classList.contains('recording')) {
+                if (recognition) recognition.stop();
+                btnElement.classList.remove('recording');
+                btnElement.innerHTML = '🎤 Dictar';
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.lang = 'es-CL';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            btnElement.classList.add('recording');
+            btnElement.innerHTML = '🔴 Escuchando...';
+
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;
+                const targetArea = document.getElementById(elementId);
+                
+                // Simulación de formateo inteligente de redacción médica
+                let formattedText = speechResult;
+                if (elementId === 'prescriptionText') {
+                    formattedText = `• Fármaco recetado (Dictado por voz): ${speechResult.charAt(0).toUpperCase() + speechResult.slice(1)}.\n• Indicación: Tomar según indicación médica y mantener hidratación.`;
+                }
+
+                targetArea.value = targetArea.value ? targetArea.value + '\n' + formattedText : formattedText;
+                btnElement.classList.remove('recording');
+                btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
+            };
+
+            recognition.onerror = function() {
+                alert('Error en el reconocimiento de voz. Inténtalo nuevamente.');
+                btnElement.classList.remove('recording');
+                btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
+            };
+
+            recognition.onend = function() {
+                btnElement.classList.remove('recording');
+                btnElement.innerHTML = elementId === 'prescriptionText' ? '🎤 Dictar Receta' : '🎤 Dictar';
+            };
+
+            recognition.start();
+        }
+
         function sendPrescriptionWhatsApp() {
             const p = patientsData[currentPatientIndex];
             const prescription = document.getElementById('prescriptionText').value.trim();
             const notes = document.getElementById('clinicalNotes').value.trim();
 
             if (!prescription) {
-                alert('Por favor, escribe la receta o indicaciones médicas antes de enviarlas.');
+                alert('Por favor, redacta o dicta la receta antes de enviarla.');
                 return;
             }
 
@@ -568,7 +653,7 @@
         }
 
         function saveRecord() {
-            alert('¡Ficha clínica y receta guardadas correctamente en el sistema!');
+            alert('¡Ficha clínica y receta aprobadas y guardadas correctamente en el sistema!');
         }
     </script>
 </body>
