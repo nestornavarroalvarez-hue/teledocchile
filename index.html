@@ -179,7 +179,7 @@
             object-fit: cover;
         }
 
-        /* Sección de Especialistas */
+        /* Secciones Generales */
         .section-container {
             max-width: 1200px;
             margin: 5rem auto;
@@ -340,7 +340,112 @@
             background-color: #003652;
         }
 
-        /* Estilos de la Ventana Emergente (Modal) */
+        /* Sección de Opiniones de Pacientes (Prueba Social) */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: #FFFFFF;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #F1F5F9;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .review-stars {
+            color: #F59E0B;
+            font-size: 1.1rem;
+        }
+
+        .review-text {
+            color: #64748B;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .review-author {
+            font-weight: 700;
+            color: var(--color-principal);
+            font-size: 0.9rem;
+        }
+
+        /* Sellos de Confianza y Footer Institucional */
+        .trust-banner {
+            background: #E6F8F3;
+            border: 1px solid #B2F2E2;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin: 4rem auto;
+            max-width: 1200px;
+        }
+
+        .trust-banner h3 {
+            color: var(--color-principal);
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-banner p {
+            color: #007A5C;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .footer {
+            background: #002B40;
+            color: #FFFFFF;
+            padding: 4rem 5% 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-secundario);
+        }
+
+        .footer-col p, .footer-col a {
+            color: #94A3B8;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: #FFFFFF;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            text-align: center;
+            color: #64748B;
+            font-size: 0.85rem;
+        }
+
+        /* Ventana Emergente (Modal) */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -365,7 +470,6 @@
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
-            position: relative;
         }
 
         .modal-title {
@@ -431,7 +535,7 @@
             background: #00A37A;
         }
 
-        /* Secciones de Pasos y FAQ */
+        /* Pasos y FAQ */
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -519,7 +623,7 @@
             .hero-title {
                 font-size: 2.25rem;
             }
-            .doctors-grid, .steps-grid {
+            .doctors-grid, .steps-grid, .reviews-grid, .footer-content {
                 grid-template-columns: 1fr;
             }
             .faq-container {
@@ -537,7 +641,7 @@
             <ul class="nav-links">
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#especialistas">Profesionales</a></li>
-                <li><a href="#como-funciona">Cómo Funciona</a></li>
+                <li><a href="#opiniones">Opiniones</a></li>
                 <li><a href="#faq">Preguntas Frecuentes</a></li>
             </ul>
         </nav>
@@ -549,12 +653,12 @@
         <div class="hero-content">
             <span class="hero-tagline">Medicina Online • Atención de Excelencia</span>
             <h1 class="hero-title">Tu salud y la de tu familia, a un clic de distancia.</h1>
-            <p class="hero-subtitle">Selecciona a tu profesional, elige el día y horario que mejor se adapte a ti y agenda tu teleconsulta de forma rápida y transparente.</p>
+            <p class="hero-subtitle">Selecciona a tu profesional, elige el día y horario que mejor se adapte a ti y agenda tu teleconsulta respaldada por profesionales con calidez humana.</p>
             
             <div class="hero-price-box">
                 <span style="font-size: 0.85rem; color: #64748B; font-weight: 600;">VALOR DE LA TELECONSULTA</span>
                 <span class="hero-price-value">$30.000 CLP</span>
-                <span style="font-size: 0.85rem; color: #64748B;">Atención particular / Boleta reembolsable en Isapre y Seguros</span>
+                <span style="font-size: 0.85rem; color: #64748B;">Atención particular / Boleta 100% reembolsable en Isapre y Seguros</span>
             </div>
 
             <a href="#especialistas" class="btn-whatsapp-main">📅 Seleccionar Médico y Horario</a>
@@ -564,6 +668,12 @@
             <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop" alt="Atención médica humanizada en línea" class="hero-image">
         </div>
     </section>
+
+    <!-- Sello de Confianza / Convenios -->
+    <div class="trust-banner">
+        <h3>🛡️ Garantía de Calidad y Reembolso</h3>
+        <p>Todas nuestras atenciones generan boleta médica electrónica válida para presentación y reembolso en Isapres y Seguros Complementarios de Salud en Chile.</p>
+    </div>
 
     <!-- Directorio de Profesionales -->
     <div id="especialistas" class="section-container">
@@ -626,6 +736,32 @@
                         <button onclick="openBookingModal('Dr. Alejandro Morales', 'date-morales', 'morales')" class="btn-confirm-booking">Confirmar y Reservar Hora</button>
                     </div>
                 </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SECCIÓN DE OPINIONES Y RESEÑAS VERIFICADAS -->
+    <div id="opiniones" class="section-container">
+        <h2 class="section-title">Lo que dicen nuestros pacientes</h2>
+        <div class="reviews-grid">
+            
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"Excelente atención. La doctora fue muy paciente, explicó todo con claridad y me mandó la receta al instante. 100% recomendado."</p>
+                <div class="review-author">— Marcela R., Santiago</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"Muy cómodo poder consultar desde la casa sin esperas en clínicas. El proceso de reserva y coordinación por WhatsApp funcionó perfecto."</p>
+                <div class="review-author">— Rodrigo V., Linares</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"Gran profesionalismo y calidez humana. Pude presentar la boleta sin problemas en mi Isapre para el reembolso."</p>
+                <div class="review-author">— Andrea M., Concepción</div>
             </div>
 
         </div>
@@ -701,6 +837,32 @@
         </div>
     </div>
 
+    <!-- PIE DE PÁGINA (FOOTER) INSTITUCIONAL -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>TeleDocChile</h4>
+                <p>Plataforma de telemedicina orientada a brindar atención médica de excelencia, cercana y con calidez humana para todo Chile.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <p><a href="#">Inicio</a></p>
+                <p><a href="#especialistas">Profesionales</a></p>
+                <p><a href="#opiniones">Opiniones de Pacientes</a></p>
+                <p><a href="#faq">Preguntas Frecuentes</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto y Base</h4>
+                <p>📍 Linares, Región del Maule, Chile</p>
+                <p>✉️ contacto@teledocchile.cl</p>
+                <p>🕒 Lunes a Sábado</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TeleDocChile.cl - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
     <!-- Script JavaScript para manejo de reservas y WhatsApp -->
     <script>
         const selectedTimes = {
@@ -753,10 +915,8 @@
                 return;
             }
 
-            // Mensaje de éxito con la ortografía corregida ("Hemos")
             alert(`¡Reserva procesada con éxito!\n\n1. Hemos registrado tus datos (${email}) para tu ficha.\n2. A continuación, se abrirá WhatsApp para coordinar tu pago y comprobante.`);
 
-            // Construir mensaje para WhatsApp
             const message = `Hola, mi nombre es ${name} (RUT: ${rut}, Correo: ${email}). Deseo confirmar mi teleconsulta con ${currentBookingData.doctorName} para el día ${currentBookingData.date} a las ${currentBookingData.time} horas en TeleDocChile. Adjunto mi comprobante de pago.`;
             const phone = "56900000000";
             const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
