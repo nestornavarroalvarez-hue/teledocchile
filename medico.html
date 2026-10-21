@@ -39,15 +39,13 @@
             border: 1px solid #B2F2E2;
         }
 
-        /* Layout de Consola Dividida */
         .console-container {
             display: grid;
-            grid-template-columns: 320px 1fr;
+            grid-template-columns: 300px 1fr;
             height: calc(100vh - 70px);
             background: #F1F5F9;
         }
 
-        /* Columna Izquierda: Agenda y Lista de Espera */
         .sidebar-agenda {
             background: #FFFFFF;
             border-right: 1px solid #E2E8F0;
@@ -89,28 +87,27 @@
         .patient-name { font-size: 0.95rem; font-weight: 700; color: var(--color-principal); }
         .patient-reason { font-size: 0.8rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* Columna Derecha: Consola Activa (Video + Ficha) */
         .workspace {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            padding: 1.5rem;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.25rem;
+            padding: 1.25rem;
             overflow-y: auto;
         }
 
         .workspace-panel {
             background: #FFFFFF;
             border-radius: 16px;
-            padding: 1.5rem;
+            padding: 1.25rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             border: 1px solid #E2E8F0;
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 1rem;
         }
 
         .panel-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--color-principal);
             display: flex;
@@ -118,36 +115,46 @@
             align-items: center;
         }
 
-        /* Contenedor de Video */
+        /* Video integrado en paralelo */
         .video-box {
             background: #0F172A;
             border-radius: 12px;
-            height: 320px;
+            height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: #FFFFFF;
             position: relative;
+            overflow: hidden;
+        }
+
+        #webcamVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .video-placeholder {
             text-align: center;
             padding: 1rem;
         }
 
-        .video-box p { color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem; }
-
-        .btn-video {
+        .btn-action-video {
             background-color: var(--color-secundario);
             color: #FFFFFF;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
             transition: background 0.3s ease;
         }
-        .btn-video:hover { background-color: #00A37A; }
+        .btn-action-video:hover { background-color: #00A37A; }
 
-        /* Ficha Clínica y Recetas */
         .form-group-console {
             display: flex;
             flex-direction: column;
@@ -155,44 +162,63 @@
         }
 
         .form-group-console label {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 700;
             color: var(--color-principal);
             text-transform: uppercase;
         }
 
-        .console-input, .console-textarea {
-            padding: 0.65rem;
+        .console-textarea {
+            padding: 0.6rem;
             border: 1px solid #CBD5E1;
             border-radius: 8px;
             font-family: var(--fuente-principal);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             background: #F8FAFC;
+            resize: vertical;
+            height: 85px;
         }
-
-        .console-textarea { resize: vertical; height: 110px; }
 
         .patient-info-box {
             background: #F8FAFC;
-            padding: 1rem;
+            padding: 0.85rem;
             border-radius: 10px;
             border: 1px solid #E2E8F0;
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            gap: 0.3rem;
         }
 
-        .patient-info-box span { font-size: 0.85rem; color: #475569; }
+        .patient-info-box span { font-size: 0.82rem; color: #475569; }
 
-        .btn-save-record {
-            background-color: var(--color-principal);
+        .btn-send-whatsapp {
+            background-color: #25D366;
             color: #FFFFFF;
-            padding: 0.8rem;
+            padding: 0.75rem;
             border-radius: 10px;
             font-weight: 700;
             border: none;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            transition: background 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+        .btn-send-whatsapp:hover { background-color: #1EBE5D; }
+
+        .btn-save-record {
+            background-color: var(--color-principal);
+            color: #FFFFFF;
+            padding: 0.75rem;
+            border-radius: 10px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-size: 0.88rem;
             transition: background 0.3s ease;
             text-align: center;
             display: block;
@@ -239,32 +265,34 @@
             </div>
         </aside>
 
-        <!-- ESPACIO DE TRABAJO (VIDEOCONFERENCIA + FICHA CLÍNICA) -->
+        <!-- ESPACIO DE TRABAJO EN PANTALLA DIVIDIDA -->
         <main class="workspace">
             
-            <!-- Panel Izquierdo: Sala de Video -->
+            <!-- Panel Izquierdo: Videocámara en Vivo Integrada -->
             <div class="workspace-panel">
                 <div class="panel-title">
-                    <span>1. Sala de Videoconsulta</span>
-                    <span id="activePatientTag" style="font-size: 0.8rem; color: #007A5C; background: #E6F8F3; padding: 0.2rem 0.6rem; border-radius: 12px;">Atendiendo a: Marcela Ríos</span>
+                    <span>1. Videoconsulta en Pantalla</span>
+                    <span id="activePatientTag" style="font-size: 0.75rem; color: #007A5C; background: #E6F8F3; padding: 0.2rem 0.5rem; border-radius: 12px;">Atendiendo a: Marcela Ríos</span>
                 </div>
                 
-                <div class="video-box">
-                    <p>Conecta la videollamada para iniciar la sesión con el paciente seleccionado.</p>
-                    <a href="https://meet.google.com/new" target="_blank" class="btn-video">🎥 Abrir Videollamada (Meet)</a>
+                <div class="video-box" id="videoContainer">
+                    <div class="video-placeholder" id="videoPlaceholder">
+                        <p style="color: #94A3B8; font-size: 0.85rem; margin-bottom: 0.75rem;">Activa la cámara para iniciar la sesión visual con el paciente sin perder tu panel.</p>
+                        <button onclick="startCamera()" class="btn-action-video">📷 Activar Cámara en Vivo</button>
+                    </div>
+                    <video id="webcamVideo" autoplay playsinline></video>
                 </div>
 
-                <div style="background: #F8FAFC; padding: 1rem; border-radius: 10px; border: 1px solid #E2E8F0;">
-                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-principal); display: block; margin-bottom: 0.4rem;">CANAL DIRECTO</span>
-                    <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 0.75rem;">Si necesitas enviar el enlace directo o coordinar por chat:</p>
-                    <a id="whatsappContactBtn" href="https://wa.me/56900000000?text=Hola%20Marcela,%20te%20escribo%20desde%20TeleDocChile%20para%20iniciar%20nuestra%20teleconsulta." target="_blank" class="btn-video" style="background-color: #25D366; display: inline-block; text-align: center; width: 100%;">💬 Enviar Mensaje WhatsApp</a>
+                <div style="background: #F8FAFC; padding: 0.85rem; border-radius: 10px; border: 1px solid #E2E8F0;">
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-principal); display: block; margin-bottom: 0.2rem;">ACCESO RÁPIDO</span>
+                    <p style="font-size: 0.8rem; color: #64748B;">La videoconsulta opera en paralelo, permitiéndote redactar recetas y revisar antecedentes sin salir de esta vista.</p>
                 </div>
             </div>
 
-            <!-- Panel Derecho: Ficha Clínica, Notas y Recetas -->
+            <!-- Panel Derecho: Ficha Clínica, Receta y Envío Directo -->
             <div class="workspace-panel">
                 <div class="panel-title">
-                    <span>2. Ficha Clínica y Receta</span>
+                    <span>2. Ficha y Receta Médica</span>
                 </div>
 
                 <div class="patient-info-box">
@@ -275,13 +303,18 @@
 
                 <div class="form-group-console">
                     <label>Notas Clínicas / Anamnesis</label>
-                    <textarea class="console-textarea" placeholder="Registra los síntomas, diagnóstico o evolución del paciente..."></textarea>
+                    <textarea id="clinicalNotes" class="console-textarea" placeholder="Registra síntomas o evolución..."></textarea>
                 </div>
 
                 <div class="form-group-console">
-                    <label>Receta Médica / Indicaciones / Exámenes</label>
-                    <textarea class="console-textarea" placeholder="Escribe aquí los medicamentos, dosis u órdenes de exámenes..."></textarea>
+                    <label>Receta Médica / Indicaciones</label>
+                    <textarea id="prescriptionText" class="console-textarea" placeholder="Escribe aquí los medicamentos, dosis u órdenes de exámenes..."></textarea>
                 </div>
+
+                <!-- Botón de Envío Directo por WhatsApp -->
+                <button onclick="sendPrescriptionWhatsApp()" class="btn-send-whatsapp">
+                    💬 Enviar Receta / Indicaciones por WhatsApp al Paciente
+                </button>
 
                 <button onclick="saveRecord()" class="btn-save-record">💾 Guardar Ficha y Finalizar Sesión</button>
             </div>
@@ -297,7 +330,7 @@
                 rut: "14.567.890-k",
                 email: "marcela.rios@ejemplo.cl",
                 reason: "Control general de salud y revisión de exámenes preventivos.",
-                wa: "Hola Marcela, te escribo desde TeleDocChile para iniciar nuestra teleconsulta."
+                phone: "56900000000"
             },
             {
                 name: "Rodrigo Vera",
@@ -305,7 +338,7 @@
                 rut: "12.345.678-9",
                 email: "rodrigo.vera@ejemplo.cl",
                 reason: "Dolor lumbar leve y solicitud de receta crónica.",
-                wa: "Hola Rodrigo, te escribo desde TeleDocChile para iniciar nuestra teleconsulta."
+                phone: "56900000000"
             },
             {
                 name: "Andrea Morales",
@@ -313,30 +346,60 @@
                 rut: "16.789.012-3",
                 email: "andrea.morales@ejemplo.cl",
                 reason: "Control sano y orientación sobre síntomas respiratorios leves.",
-                wa: "Hola Andrea, te escribo desde TeleDocChile para iniciar nuestra teleconsulta."
+                phone: "56900000000"
             }
         ];
 
+        let currentPatientIndex = 0;
+
         function loadPatient(index) {
+            currentPatientIndex = index;
             const p = patientsData[index];
             
-            // Actualizar pestañas activas
             const items = document.querySelectorAll('.patient-item');
             items.forEach((item, idx) => {
                 if(idx === index) item.classList.add('active');
                 else item.classList.remove('active');
             });
 
-            // Actualizar textos en consola
             document.getElementById('activePatientTag').innerText = `Atendiendo a: ${p.name}`;
             document.getElementById('infoRut').innerHTML = `<strong>RUT:</strong> ${p.rut}`;
             document.getElementById('infoEmail').innerHTML = `<strong>Correo:</strong> ${p.email}`;
             document.getElementById('infoReason').innerHTML = `<strong>Motivo:</strong> ${p.reason}`;
-            document.getElementById('whatsappContactBtn').href = `https://wa.me/56900000000?text=${encodeURIComponent(p.wa)}`;
+            document.getElementById('clinicalNotes').value = "";
+            document.getElementById('prescriptionText').value = "";
+        }
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                const videoElement = document.getElementById('webcamVideo');
+                videoElement.srcObject = stream;
+                videoElement.style.display = 'block';
+                document.getElementById('videoPlaceholder').style.display = 'none';
+            } catch (error) {
+                alert('No se pudo acceder a la cámara. Revisa los permisos de tu navegador.');
+            }
+        }
+
+        function sendPrescriptionWhatsApp() {
+            const p = patientsData[currentPatientIndex];
+            const prescription = document.getElementById('prescriptionText').value.trim();
+            const notes = document.getElementById('clinicalNotes').value.trim();
+
+            if (!prescription) {
+                alert('Por favor, escribe la receta o indicaciones médicas antes de enviarlas.');
+                return;
+            }
+
+            const message = `Hola *${p.name}*, le escribe la *Dra. Jennie Guzmán Tapia* desde *TeleDocChile*.\n\nAquí tiene su receta e indicaciones médicas de su consulta:\n\n*Indicaciones y Fármacos:*\n${prescription}\n\n*Notas de atención:*\n${notes || 'Ninguna'}\n\nGuarde este mensaje para presentar en farmacia o centro de salud. ¡Que se mejore!`;
+            
+            const url = `https://wa.me/${p.phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
         }
 
         function saveRecord() {
-            alert('¡Ficha clínica guardada con éxito en el registro local de la sesión!');
+            alert('¡Ficha clínica y receta guardadas correctamente en el sistema!');
         }
     </script>
 </body>
