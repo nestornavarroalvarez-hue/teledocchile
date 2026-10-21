@@ -136,6 +136,23 @@
             color: var(--color-principal);
         }
 
+        .btn-whatsapp-main {
+            background-color: #00C897;
+            color: #FFFFFF;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,200,151,0.2);
+        }
+
+        .btn-whatsapp-main:hover {
+            background-color: #00A37A;
+        }
+
         .hero-image-container {
             width: 100%;
             display: flex;
@@ -171,7 +188,7 @@
 </head>
 <body>
 
-    <!-- Barra de Navegación con el nombre exacto TeleDocChile -->
+    <!-- Barra de Navegación -->
     <header class="header">
         <a href="#" class="logo">TeleDoc<span>Chile</span></a>
         <nav>
@@ -182,7 +199,8 @@
                 <li><a href="#">Contacto</a></li>
             </ul>
         </nav>
-        <a href="#" class="btn-reservar-header">Reservar Teleconsulta</a>
+        <!-- Botón de WhatsApp en la barra superior -->
+        <a href="https://wa.me/56900000000?text=Hola%2C%20Dra.%20Jennie.%20Deseo%20agendar%20una%20teleconsulta%20en%20TeleDocChile." target="_blank" class="btn-reservar-header">Reservar Teleconsulta</a>
     </header>
 
     <section class="hero">
@@ -197,10 +215,11 @@
                 <span style="font-size: 0.85rem; color: #6B7280;">Atención particular / Boleta reembolsable</span>
             </div>
 
-            <a href="#" style="background-color: #00C897; color: #FFFFFF; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center; display: inline-block; transition: background-color 0.3s ease;">Reservar mi Hora Ahora</a>
+            <!-- Botón de WhatsApp Principal con mensaje automático -->
+            <a href="https://wa.me/56900000000?text=Hola%2C%20Dra.%20Jennie.%20Deseo%20agendar%20una%20teleconsulta%20en%20TeleDocChile." target="_blank" class="btn-whatsapp-main">📅 Agendar por WhatsApp</a>
         </div>
 
-        <!-- CONTENEDOR DE LA IMAGEN: Aquí podrás cambiar el enlace entre las comillas "src" en el futuro por cualquier otra foto que desees -->
+        <!-- Contenedor de la Imagen -->
         <div class="hero-image-container">
             <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop" alt="Doctora sonriendo en consulta de telemedicina" class="hero-image">
         </div>
