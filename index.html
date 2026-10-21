@@ -179,7 +179,7 @@
             object-fit: cover;
         }
 
-        /* Sección de Especialistas (Marketplace) */
+        /* Sección de Especialistas con Agenda Interactiva */
         .section-container {
             max-width: 1200px;
             margin: 5rem auto;
@@ -209,11 +209,6 @@
             border: 1px solid #F1F5F9;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease;
-        }
-
-        .doctor-card:hover {
-            transform: translateY(-5px);
         }
 
         .doctor-header {
@@ -255,9 +250,8 @@
             padding: 2rem;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.2rem;
             flex-grow: 1;
-            justify-content: space-between;
         }
 
         .doctor-bio {
@@ -266,19 +260,82 @@
             line-height: 1.6;
         }
 
-        .btn-doctor {
+        /* Controles de Agenda Interactiva */
+        .booking-box {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .booking-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-principal);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .booking-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            font-family: var(--fuente-principal);
+            font-size: 0.95rem;
+            background: #FFFFFF;
+            color: var(--color-texto);
+        }
+
+        .slots-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .time-slot {
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            padding: 0.5rem;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-texto);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .time-slot:hover {
+            border-color: var(--color-secundario);
+            color: var(--color-principal);
+        }
+
+        .time-slot.selected {
+            background-color: var(--color-secundario);
+            color: #FFFFFF;
+            border-color: var(--color-secundario);
+        }
+
+        .btn-confirm-booking {
             background-color: var(--color-principal);
             color: #FFFFFF;
-            padding: 0.85rem 1.5rem;
+            padding: 0.85rem;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 700;
             text-align: center;
             font-size: 0.95rem;
             transition: background-color 0.3s ease;
+            display: block;
+            margin-top: 0.5rem;
         }
 
-        .btn-doctor:hover {
+        .btn-confirm-booking:hover {
             background-color: #003652;
         }
 
@@ -400,7 +457,7 @@
         <div class="hero-content">
             <span class="hero-tagline">Medicina Online • Atención de Excelencia</span>
             <h1 class="hero-title">Tu salud y la de tu familia, a un clic de distancia.</h1>
-            <p class="hero-subtitle">Agenda tu teleconsulta con calidez humana desde la comodidad de tu hogar. Elige a tu médico tratante y recibe orientación profesional, recetas y órdenes de exámenes de forma segura.</p>
+            <p class="hero-subtitle">Selecciona a tu profesional, elige el día y horario que mejor se adapte a ti y agenda tu teleconsulta de forma rápida y transparente.</p>
             
             <div class="hero-price-box">
                 <span style="font-size: 0.85rem; color: #64748B; font-weight: 600;">VALOR DE LA TELECONSULTA</span>
@@ -408,7 +465,7 @@
                 <span style="font-size: 0.85rem; color: #64748B;">Atención particular / Boleta reembolsable en Isapre y Seguros</span>
             </div>
 
-            <a href="#especialistas" class="btn-whatsapp-main">👨‍⚕️ Ver Médicos y Agendar Hora</a>
+            <a href="#especialistas" class="btn-whatsapp-main">📅 Seleccionar Médico y Horario</a>
         </div>
 
         <div class="hero-image-container">
@@ -416,12 +473,12 @@
         </div>
     </section>
 
-    <!-- NUEVA SECCIÓN: Directorio de Profesionales (Staff Médico) -->
+    <!-- Directorio de Profesionales con Selector de Fecha y Hora -->
     <div id="especialistas" class="section-container">
-        <h2 class="section-title">Nuestros Profesionales</h2>
+        <h2 class="section-title">Elige a tu Profesional y Reserva</h2>
         <div class="doctors-grid">
             
-            <!-- Médico 1 -->
+            <!-- Médico 1: Dra. Jennie Guzmán -->
             <div class="doctor-card">
                 <div class="doctor-header">
                     <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=300&auto=format&fit=crop" alt="Dra. Jennie Guzmán" class="doctor-avatar">
@@ -432,15 +489,29 @@
                     </div>
                 </div>
                 <div class="doctor-body">
-                    <p class="doctor-bio">Atención cercana, integral y con profunda calidez humana enfocada en el bienestar familiar, prevención y resolución oportuna de patologías agudas.</p>
-                    <a href="https://wa.me/56900000000?text=Hola%2C%20deseo%20agendar%20con%20la%20Dra.%20Jennie%20Guzm%C3%A1n." target="_blank" class="btn-doctor">Ver Disponibilidad y Agendar</a>
+                    <p class="doctor-bio">Atención cercana, integral y con profunda calidez humana enfocada en el bienestar familiar y prevención.</p>
+                    
+                    <!-- Selector de Agenda Interactivo -->
+                    <div class="booking-box">
+                        <span class="booking-label">1. Selecciona el día:</span>
+                        <input type="date" id="date-jennie" class="booking-input" value="2026-10-25">
+                        
+                        <span class="booking-label">2. Elige un horario disponible:</span>
+                        <div class="slots-container" id="slots-jennie">
+                            <div class="time-slot" onclick="selectSlot('jennie', '15:00', this)">15:00</div>
+                            <div class="time-slot" onclick="selectSlot('jennie', '16:00', this)">16:00</div>
+                            <div class="time-slot" onclick="selectSlot('jennie', '17:00', this)">17:00</div>
+                        </div>
+
+                        <a href="javascript:void(0);" onclick="bookAppointment('Dra. Jennie Guzmán', 'date-jennie', 'jennie')" class="btn-confirm-booking">Confirmar y Reservar Hora</a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Médico 2 (Ejemplo de otro profesional que se puede sumar a futuro) -->
+            <!-- Médico 2: Dr. Alejandro Morales -->
             <div class="doctor-card">
                 <div class="doctor-header">
-                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=300&auto=format&fit=crop" alt="Dr. Especialista" class="doctor-avatar">
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=300&auto=format&fit=crop" alt="Dr. Alejandro Morales" class="doctor-avatar">
                     <div class="doctor-info">
                         <h3>Dr. Alejandro Morales</h3>
                         <div class="doctor-spec">Medicina Familiar</div>
@@ -448,55 +519,14 @@
                     </div>
                 </div>
                 <div class="doctor-body">
-                    <p class="doctor-bio">Enfoque clínico centrado en el seguimiento crónico, orientación diagnóstica y apoyo personalizado para el cuidado integral de la salud de pacientes y adultos.</p>
-                    <a href="https://wa.me/56900000000?text=Hola%2C%20deseo%20agendar%20con%20el%20Dr.%20Alejandro%20Morales." target="_blank" class="btn-doctor">Ver Disponibilidad y Agendar</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Sección de Pasos -->
-    <div id="como-funciona" class="section-container" style="margin-top: 0;">
-        <h2 class="section-title">¿Cómo funciona la teleconsulta?</h2>
-        <div class="steps-grid">
-            <div class="step-card">
-                <div class="step-number">01</div>
-                <h3>Elige a tu tratante</h3>
-                <p>Revisa los perfiles de nuestros médicos, sus especialidades y haz clic en agendar con el profesional de tu preferencia.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">02</div>
-                <h3>Realiza tu transferencia</h3>
-                <p>Transfiere el valor de la consulta ($30.000 CLP) y comparte tu comprobante mediante nuestro canal de atención.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">03</div>
-                <h3>Conéctate con la Doctora o Doctor</h3>
-                <p>Recibe tu enlace de videollamada y atiende tus necesidades de salud desde donde estés, con total confianza.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sección de Preguntas Frecuentes -->
-    <div id="faq" class="faq-container">
-        <h2 class="section-title" style="margin-bottom: 2.5rem;">Preguntas Frecuentes</h2>
-        
-        <div class="faq-item">
-            <h4>¿Se emiten recetas médicas y órdenes de exámenes?</h4>
-            <p>Sí, nuestros profesionales emiten recetas electrónicas válidas y órdenes de exámenes que podrás utilizar sin problemas en cualquier farmacia o centro de salud del país.</p>
-        </div>
-
-        <div class="faq-item">
-            <h4>¿La boleta es reembolsable en Isapre o Seguros Complementarios?</h4>
-            <p>Así es. Se emite una boleta de honorarios por atención médica particular diseñada para que puedas presentarla en tu Isapre o compañía de seguro complementario y gestionar tu reembolso.</p>
-        </div>
-
-        <div class="faq-item">
-            <h4>¿Cuál es la duración de la teleconsulta?</h4>
-            <p>Cada sesión se extiende por un periodo de 20 a 30 minutos, brindando el tiempo necesario para escuchar tu caso, orientarte profesionalmente y entregar todas las indicaciones pertinentes.</p>
-        </div>
-    </div>
-
-</body>
-</html>
+                    <p class="doctor-bio">Enfoque clínico centrado en seguimiento crónico, orientación diagnóstica y apoyo personalizado.</p>
+                    
+                    <!-- Selector de Agenda Interactivo -->
+                    <div class="booking-box">
+                        <span class="booking-label">1. Selecciona el día:</span>
+                        <input type="date" id="date-morales" class="booking-input" value="2026-10-25">
+                        
+                        <span class="booking-label">2. Elige un horario disponible:</span>
+                        <div class="slots-container" id="slots-morales">
+                            <div class="time-slot" onclick="selectSlot('morales', '10:00', this)">10:00</div>
+                            <div class="time-slot" onclick="selectSlot('morales', '11:
