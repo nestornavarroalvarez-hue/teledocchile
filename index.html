@@ -179,7 +179,7 @@
             object-fit: cover;
         }
 
-        /* Sección de Especialistas con Agenda Interactiva */
+        /* Sección de Especialistas */
         .section-container {
             max-width: 1200px;
             margin: 5rem auto;
@@ -260,7 +260,6 @@
             line-height: 1.6;
         }
 
-        /* Controles de Agenda Interactiva */
         .booking-box {
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
@@ -333,10 +332,103 @@
             transition: background-color 0.3s ease;
             display: block;
             margin-top: 0.5rem;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-confirm-booking:hover {
             background-color: #003652;
+        }
+
+        /* Estilos de la Ventana Emergente (Modal) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: #FFFFFF;
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            position: relative;
+        }
+
+        .modal-title {
+            color: var(--color-principal);
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .modal-subtitle {
+            color: #64748B;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-principal);
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            font-family: var(--fuente-principal);
+            font-size: 0.95rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-modal-cancel {
+            background: #E2E8F0;
+            color: #475569;
+            padding: 0.85rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-modal-submit {
+            background: var(--color-secundario);
+            color: #FFFFFF;
+            padding: 0.85rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-modal-submit:hover {
+            background: #00A37A;
         }
 
         /* Secciones de Pasos y FAQ */
@@ -473,7 +565,7 @@
         </div>
     </section>
 
-    <!-- Directorio de Profesionales con Selector de Fecha y Hora -->
+    <!-- Directorio de Profesionales -->
     <div id="especialistas" class="section-container">
         <h2 class="section-title">Elige a tu Profesional y Reserva</h2>
         <div class="doctors-grid">
@@ -491,7 +583,6 @@
                 <div class="doctor-body">
                     <p class="doctor-bio">Atención cercana, integral y con profunda calidez humana enfocada en el bienestar familiar y prevención.</p>
                     
-                    <!-- Selector de Agenda Interactivo -->
                     <div class="booking-box">
                         <span class="booking-label">1. Selecciona el día:</span>
                         <input type="date" id="date-jennie" class="booking-input" value="2026-10-25">
@@ -503,7 +594,7 @@
                             <div class="time-slot" onclick="selectSlot('jennie', '17:00', this)">17:00</div>
                         </div>
 
-                        <a href="javascript:void(0);" onclick="bookAppointment('Dra. Jennie Guzmán', 'date-jennie', 'jennie')" class="btn-confirm-booking">Confirmar y Reservar Hora</a>
+                        <button onclick="openBookingModal('Dra. Jennie Guzmán', 'date-jennie', 'jennie')" class="btn-confirm-booking">Confirmar y Reservar Hora</button>
                     </div>
                 </div>
             </div>
@@ -521,7 +612,6 @@
                 <div class="doctor-body">
                     <p class="doctor-bio">Enfoque clínico centrado en seguimiento crónico, orientación diagnóstica y apoyo personalizado.</p>
                     
-                    <!-- Selector de Agenda Interactivo -->
                     <div class="booking-box">
                         <span class="booking-label">1. Selecciona el día:</span>
                         <input type="date" id="date-morales" class="booking-input" value="2026-10-25">
@@ -529,4 +619,156 @@
                         <span class="booking-label">2. Elige un horario disponible:</span>
                         <div class="slots-container" id="slots-morales">
                             <div class="time-slot" onclick="selectSlot('morales', '10:00', this)">10:00</div>
-                            <div class="time-slot" onclick="selectSlot('morales', '11:
+                            <div class="time-slot" onclick="selectSlot('morales', '11:00', this)">11:00</div>
+                            <div class="time-slot" onclick="selectSlot('morales', '12:00', this)">12:00</div>
+                        </div>
+
+                        <button onclick="openBookingModal('Dr. Alejandro Morales', 'date-morales', 'morales')" class="btn-confirm-booking">Confirmar y Reservar Hora</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- VENTANA EMERGENTE (MODAL) PARA REGISTRO DE DATOS DEL PACIENTE -->
+    <div id="bookingModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="modal-title">Registro de Paciente</h3>
+            <p class="modal-subtitle" id="modalSubtitle">Ingresa tus datos para confirmar tu cita médica.</p>
+            
+            <div class="form-group">
+                <label>Nombre Completo</label>
+                <input type="text" id="patientName" class="form-input" placeholder="Ej. Juan Pérez Soto">
+            </div>
+
+            <div class="form-group">
+                <label>RUT</label>
+                <input type="text" id="patientRut" class="form-input" placeholder="Ej. 12.345.678-9">
+            </div>
+
+            <div class="form-group">
+                <label>Correo Electrónico</label>
+                <input type="email" id="patientEmail" class="form-input" placeholder="Ej. correo@ejemplo.cl">
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-modal-cancel" onclick="closeModal()">Cancelar</button>
+                <button type="button" class="btn-modal-submit" onclick="submitBooking()">Finalizar y Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Pasos -->
+    <div id="como-funciona" class="section-container" style="margin-top: 0;">
+        <h2 class="section-title">¿Cómo funciona la teleconsulta?</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">01</div>
+                <h3>Elige fecha y hora</h3>
+                <p>Selecciona a tu profesional, escoge el día en el calendario y pincha el horario de tu preferencia.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">02</div>
+                <h3>Regístrate y transfiere</h3>
+                <p>Ingresa tus datos personales, transfiere los $30.000 CLP y comparte tu comprobante.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">03</div>
+                <h3>Conéctate a tu sesión</h3>
+                <p>Recibe la confirmación en tu correo y conéctate a tu videollamada desde la comodidad de tu hogar.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Preguntas Frecuentes -->
+    <div id="faq" class="faq-container">
+        <h2 class="section-title" style="margin-bottom: 2.5rem;">Preguntas Frecuentes</h2>
+        
+        <div class="faq-item">
+            <h4>¿Se emiten recetas médicas y órdenes de exámenes?</h4>
+            <p>Sí, nuestros profesionales emiten recetas electrónicas válidas y órdenes de exámenes que podrás utilizar sin problemas en cualquier farmacia o centro de salud del país.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>¿La boleta es reembolsable en Isapre o Seguros Complementarios?</h4>
+            <p>Así es. Se emite una boleta de honorarios por atención médica particular diseñada para que puedas presentarla en tu Isapre o compañía de seguro complementario y gestionar tu reembolso.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>¿Cuál es la duración de la teleconsulta?</h4>
+            <p>Cada sesión se extiende por un periodo de 20 a 30 minutos, brindando el tiempo necesario para escuchar tu caso, orientarte profesionalmente y entregar todas las indicaciones pertinentes.</p>
+        </div>
+    </div>
+
+    <!-- Script JavaScript para manejo de horarios y la ventana emergente -->
+    <script>
+        const selectedTimes = {
+            jennie: null,
+            morales: null
+        };
+
+        let currentBookingData = {};
+
+        function selectSlot(doctorKey, time, element) {
+            const container = document.getElementById('slots-' + doctorKey);
+            const slots = container.getElementsByClassName('time-slot');
+            for (let slot of slots) {
+                slot.classList.remove('selected');
+            }
+            element.classList.add('selected');
+            selectedTimes[doctorKey] = time;
+        }
+
+        function openBookingModal(doctorName, dateInputId, doctorKey) {
+            const dateValue = document.getElementById(dateInputId).value;
+            const timeValue = selectedTimes[doctorKey];
+
+            if (!timeValue) {
+                alert('Por favor, selecciona un horario disponible antes de confirmar.');
+                return;
+            }
+
+            // Guardar datos temporales de la reserva
+            currentBookingData = {
+                doctorName: doctorName,
+                date: dateValue,
+                time: timeValue
+            };
+
+            // Actualizar subtítulo del modal con los datos elegidos
+            document.getElementById('modalSubtitle').innerText = `Cita con ${doctorName} para el ${dateValue} a las ${timeValue} hrs.`;
+            
+            // Mostrar modal
+            document.getElementById('bookingModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        function submitBooking() {
+            const name = document.getElementById('patientName').value.trim();
+            const rut = document.getElementById('patientRut').value.trim();
+            const email = document.getElementById('patientEmail').value.trim();
+
+            if (!name || !rut || !email) {
+                alert('Por favor, completa todos los campos obligatorios (Nombre, RUT y Correo).');
+                return;
+            }
+
+            // Mensaje de éxito simulando el envío de correo y confirmación
+            alert(`¡Reserva confirmada con éxito!\nHemos enviado un correo de confirmación a ${email}.\n\nA continuación, serás redirigido para coordinar el pago y comprobante con tu médico.`);
+
+            // Construir mensaje para WhatsApp incluyendo los datos del paciente y su cita
+            const message = `Hola, mi nombre es ${name} (RUT: ${rut}, Correo: ${email}). Deseo confirmar mi teleconsulta con ${currentBookingData.doctorName} para el día ${currentBookingData.date} a las ${currentBookingData.time} horas en TeleDocChile. Adjunto mi comprobante de pago.`;
+            const phone = "56900000000";
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+            closeModal();
+            window.open(url, '_blank');
+        }
+    </script>
+
+</body>
+</html>
