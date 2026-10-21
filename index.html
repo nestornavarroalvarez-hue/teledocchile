@@ -698,38 +698,38 @@
         <p>Entregamos boletas de honorarios médicas oficiales para que puedas presentar en tu Isapre o seguro. Precios justos y transparentes para apoyar el presupuesto de tu hogar.</p>
     </div>
 
-    <!-- Directorio de Profesionales (Solo Dra. Ruth Muñoz Espinoza) -->
+    <!-- Directorio de Profesionales (Única Doctora: Dra. Jennie Guzmán Tapia) -->
     <div id="especialistas" class="section-container">
         <h2 class="section-title">Elige a tu Profesional y Reserva</h2>
         <div class="doctors-grid">
             
-            <!-- Médico: Dra. Ruth Muñoz Espinoza -->
+            <!-- Médico: Dra. Jennie Guzmán Tapia -->
             <div class="doctor-card">
                 <div class="doctor-header">
-                    <img src="https://images.unsplash.com/photo-1594824813547-5d2984534f82?q=80&w=300&auto=format&fit=crop" alt="Dra. Ruth Muñoz Espinoza" class="doctor-avatar">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=300&auto=format&fit=crop" alt="Dra. Jennie Guzmán Tapia" class="doctor-avatar">
                     
                     <div class="doctor-info">
-                        <h3>Dra. Ruth Muñoz Espinoza</h3>
-                        <div class="doctor-spec">Pediatría</div>
+                        <h3>Dra. Jennie Guzmán Tapia</h3>
+                        <div class="doctor-spec">Medicina General</div>
                         <div class="doctor-reg">Registro SIS: Verificado</div>
-                        <div class="availability-badge">🟢 Próxima hora: Mañana</div>
+                        <div class="availability-badge">🟢 Atendiendo hoy</div>
                     </div>
                 </div>
                 <div class="doctor-body">
-                    <p class="doctor-bio">Especialista con tremenda calidez y calidad humana, dedicada al cuidado integral, desarrollo y salud de tus hijos.</p>
+                    <p class="doctor-bio">Atención cercana, integral y con profunda calidez humana enfocada en el bienestar familiar y prevención de salud.</p>
                     
                     <div class="booking-box">
                         <span class="booking-label">1. Selecciona el día:</span>
-                        <input type="date" id="date-ruth" class="booking-input" value="2026-10-25">
+                        <input type="date" id="date-jennie" class="booking-input" value="2026-10-25">
                         
                         <span class="booking-label">2. Elige un horario disponible:</span>
-                        <div class="slots-container" id="slots-ruth">
-                            <div class="time-slot" onclick="selectSlot('ruth', '10:00', this)">10:00</div>
-                            <div class="time-slot" onclick="selectSlot('ruth', '11:00', this)">11:00</div>
-                            <div class="time-slot" onclick="selectSlot('ruth', '12:00', this)">12:00</div>
+                        <div class="slots-container" id="slots-jennie">
+                            <div class="time-slot" onclick="selectSlot('jennie', '15:00', this)">15:00</div>
+                            <div class="time-slot" onclick="selectSlot('jennie', '16:00', this)">16:00</div>
+                            <div class="time-slot" onclick="selectSlot('jennie', '17:00', this)">17:00</div>
                         </div>
 
-                        <button onclick="openBookingModal('Dra. Ruth Muñoz Espinoza', 'date-ruth', 'ruth')" class="btn-confirm-booking">Confirmar y Reservar Hora</button>
+                        <button onclick="openBookingModal('Dra. Jennie Guzmán Tapia', 'date-jennie', 'jennie')" class="btn-confirm-booking">Confirmar y Reservar Hora</button>
                     </div>
                 </div>
             </div>
@@ -744,13 +744,13 @@
             
             <div class="review-card">
                 <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <p class="review-text">"Excelente atención de la Dra. Ruth con mi hijo. Muy paciente, cariñosa y resolvió todas nuestras dudas de padres primerizos."</p>
+                <p class="review-text">"Excelente atención de la Dra. Jennie. Muy paciente, detallista y resolvió todas nuestras dudas médicas desde casa."</p>
                 <div class="review-author">— Marcela R., Santiago</div>
             </div>
 
             <div class="review-card">
                 <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <p class="review-text">"Muy cómodo poder consultar desde la casa sin gastar en pasajes ni esperas largas. El valor es muy conveniente."</p>
+                <p class="review-text">"Muy cómodo poder consultar sin gastar en pasajes ni esperas largas. El valor es sumamente conveniente para el hogar."</p>
                 <div class="review-author">— Rodrigo V., Linares</div>
             </div>
 
@@ -786,7 +786,7 @@
 
             <div class="form-group">
                 <label>Breve motivo de consulta / Síntomas</label>
-                <textarea id="patientReason" class="form-textarea" placeholder="Ej. Control sano, fiebre, tos, receta crónica..."></textarea>
+                <textarea id="patientReason" class="form-textarea" placeholder="Ej. Control general, fiebre, receta crónica..."></textarea>
             </div>
 
             <div class="modal-buttons">
@@ -818,7 +818,7 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE PREGUNTAS FRECUENTES AMPLIADA Y SOCIALMENTE CERCANA -->
+    <!-- SECCIÓN DE PREGUNTAS FRECUENTES -->
     <div id="faq" class="faq-container">
         <h2 class="section-title" style="margin-bottom: 2.5rem;">Preguntas Frecuentes</h2>
         
@@ -837,15 +837,9 @@
             <p>Cada sesión se extiende por un periodo de 20 a 30 minutos. Es un espacio dedicado, humano y sin apuros, diseñado para escuchar tus síntomas, resolver tus dudas y entregarte indicaciones claras para tu recuperación.</p>
         </div>
 
-        <!-- NUEVAS PREGUNTAS ENFOCADAS EN ACCESIBILIDAD Y ALIVIO ECONÓMICO -->
-        <div class="faq-item">
-            <h4>¿Por qué conviene esta consulta frente a una clínica privada o hospital?</h4>
-            <p>En las grandes clínicas una consulta particular puede superar fácilmente los $60.000 o $70.000 CLP, y en los hospitales públicos o consultorios los tiempos de espera para una hora médica pueden tardar meses. En TeleDocChile te entregamos una atención expedita, cercana y de altísima calidad por solo $30.000 CLP, cuidando el bolsillo de tu familia y evitando que salgas de casa.</p>
-        </div>
-
         <div class="faq-item">
             <h4>Si pertenezco a Fonasa, ¿cómo me ayuda esta atención?</h4>
-            <p>Aunque operamos de forma particular para asegurar una atención inmediata y sin burocracia, nuestra tarifa es sumamente accesible. Esto te permite resolver urgencias pediátricas o controles de salud al instante, evitando faltar al trabajo o gastar en pasajes y traslados largos hacia centros urbanos.</p>
+            <p>Aunque operamos de forma particular para asegurar una atención inmediata y sin burocracia, nuestra tarifa es sumamente accesible. Esto te permite resolver urgencias de salud o controles generales al instante, evitando faltar al trabajo o gastar en pasajes y traslados largos hacia centros urbanos.</p>
         </div>
 
         <div class="faq-item">
@@ -883,7 +877,7 @@
     <!-- Script JavaScript -->
     <script>
         const selectedTimes = {
-            ruth: null
+            jennie: null
         };
 
         let currentBookingData = {};
