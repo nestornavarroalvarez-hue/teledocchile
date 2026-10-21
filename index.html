@@ -217,6 +217,7 @@
             padding: 2rem;
             align-items: center;
             border-bottom: 1px solid #F1F5F9;
+            position: relative;
         }
 
         .doctor-avatar {
@@ -244,6 +245,21 @@
         .doctor-reg {
             color: #64748B;
             font-size: 0.85rem;
+        }
+
+        /* Insignia de Disponibilidad en Tiempo Real */
+        .availability-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #E6F8F3;
+            color: #007A5C;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 0.3rem;
+            border: 1px solid #B2F2E2;
         }
 
         .doctor-body {
@@ -340,7 +356,7 @@
             background-color: #003652;
         }
 
-        /* Sección de Opiniones de Pacientes (Prueba Social) */
+        /* Sección de Opiniones */
         .reviews-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -376,7 +392,7 @@
             font-size: 0.9rem;
         }
 
-        /* Sellos de Confianza y Footer Institucional */
+        /* Sellos y Footer */
         .trust-banner {
             background: #E6F8F3;
             border: 1px solid #B2F2E2;
@@ -445,7 +461,7 @@
             font-size: 0.85rem;
         }
 
-        /* Ventana Emergente (Modal) */
+        /* Ventana Emergente (Modal) con Preguntas Previas */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -469,7 +485,9 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 1.1rem;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-title {
@@ -486,7 +504,7 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            gap: 0.3rem;
         }
 
         .form-group label {
@@ -495,12 +513,17 @@
             color: var(--color-principal);
         }
 
-        .form-input {
-            padding: 0.75rem;
+        .form-input, .form-textarea {
+            padding: 0.7rem;
             border: 1px solid #CBD5E1;
             border-radius: 8px;
             font-family: var(--fuente-principal);
             font-size: 0.95rem;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            height: 70px;
         }
 
         .modal-buttons {
@@ -675,7 +698,7 @@
         <p>Todas nuestras atenciones generan boleta médica electrónica válida para presentación y reembolso en Isapres y Seguros Complementarios de Salud en Chile.</p>
     </div>
 
-    <!-- Directorio de Profesionales -->
+    <!-- Directorio de Profesionales con Insignias de Disponibilidad -->
     <div id="especialistas" class="section-container">
         <h2 class="section-title">Elige a tu Profesional y Reserva</h2>
         <div class="doctors-grid">
@@ -688,6 +711,7 @@
                         <h3>Dra. Jennie Guzmán Tapia</h3>
                         <div class="doctor-spec">Medicina General</div>
                         <div class="doctor-reg">Registro SIS: En trámite</div>
+                        <div class="availability-badge">🟢 Atendiendo hoy</div>
                     </div>
                 </div>
                 <div class="doctor-body">
@@ -717,6 +741,7 @@
                         <h3>Dr. Alejandro Morales</h3>
                         <div class="doctor-spec">Medicina Familiar</div>
                         <div class="doctor-reg">Registro SIS: 458921</div>
+                        <div class="availability-badge">🟢 Próxima hora: Mañana</div>
                     </div>
                 </div>
                 <div class="doctor-body">
@@ -767,7 +792,7 @@
         </div>
     </div>
 
-    <!-- VENTANA EMERGENTE (MODAL) PARA REGISTRO DE DATOS DEL PACIENTE -->
+    <!-- VENTANA EMERGENTE (MODAL) CON PREGUNTAS PREVIAS A LA CONSULTA -->
     <div id="bookingModal" class="modal-overlay">
         <div class="modal-content">
             <h3 class="modal-title">Registro de Paciente</h3>
@@ -788,6 +813,11 @@
                 <input type="email" id="patientEmail" class="form-input" placeholder="Ej. correo@ejemplo.cl">
             </div>
 
+            <div class="form-group">
+                <label>Breve motivo de consulta / Síntomas</label>
+                <textarea id="patientReason" class="form-textarea" placeholder="Ej. Control de presión, dolor de garganta, receta crónica..."></textarea>
+            </div>
+
             <div class="modal-buttons">
                 <button type="button" class="btn-modal-cancel" onclick="closeModal()">Cancelar</button>
                 <button type="button" class="btn-modal-submit" onclick="submitBooking()">Finalizar y Continuar</button>
@@ -801,8 +831,8 @@
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-number">01</div>
-                <h3>Elige fecha y hora</h3>
-                <p>Selecciona a tu profesional, escoge el día en el calendario y pincha el horario de tu preferencia.</p>
+                <h3>Elige fecha, hora y motivo</h3>
+                <p>Selecciona a tu profesional, el horario de preferencia y detalla brevemente tu motivo de consulta.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">02</div>
@@ -863,7 +893,7 @@
         </div>
     </footer>
 
-    <!-- Script JavaScript para manejo de reservas y WhatsApp -->
+    <!-- Script JavaScript para manejo de reservas, motivo de consulta y WhatsApp -->
     <script>
         const selectedTimes = {
             jennie: null,
@@ -909,15 +939,16 @@
             const name = document.getElementById('patientName').value.trim();
             const rut = document.getElementById('patientRut').value.trim();
             const email = document.getElementById('patientEmail').value.trim();
+            const reason = document.getElementById('patientReason').value.trim() || "No especificado";
 
             if (!name || !rut || !email) {
                 alert('Por favor, completa todos los campos obligatorios (Nombre, RUT y Correo).');
                 return;
             }
 
-            alert(`¡Reserva procesada con éxito!\n\n1. Hemos registrado tus datos (${email}) para tu ficha.\n2. A continuación, se abrirá WhatsApp para coordinar tu pago y comprobante.`);
+            alert(`¡Reserva procesada con éxito!\n\n1. Hemos registrado tus datos y motivo para tu ficha.\n2. A continuación, se abrirá WhatsApp para coordinar tu pago y comprobante.`);
 
-            const message = `Hola, mi nombre es ${name} (RUT: ${rut}, Correo: ${email}). Deseo confirmar mi teleconsulta con ${currentBookingData.doctorName} para el día ${currentBookingData.date} a las ${currentBookingData.time} horas en TeleDocChile. Adjunto mi comprobante de pago.`;
+            const message = `Hola, mi nombre es ${name} (RUT: ${rut}, Correo: ${email}). Deseo confirmar mi teleconsulta con ${currentBookingData.doctorName} para el día ${currentBookingData.date} a las ${currentBookingData.time} horas en TeleDocChile.\n\nMotivo de consulta: ${reason}\n\nAdjunto mi comprobante de pago.`;
             const phone = "56900000000";
             const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
