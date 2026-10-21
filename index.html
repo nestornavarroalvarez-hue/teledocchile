@@ -179,7 +179,6 @@
             object-fit: cover;
         }
 
-        /* Secciones Generales */
         .section-container {
             max-width: 1200px;
             margin: 5rem auto;
@@ -355,7 +354,6 @@
             background-color: #003652;
         }
 
-        /* Sección de Opiniones */
         .reviews-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -391,7 +389,6 @@
             font-size: 0.9rem;
         }
 
-        /* Sellos y Footer */
         .trust-banner {
             background: #E6F8F3;
             border: 1px solid #B2F2E2;
@@ -460,7 +457,6 @@
             font-size: 0.85rem;
         }
 
-        /* Ventana Emergente (Modal) */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -557,7 +553,6 @@
             background: #00A37A;
         }
 
-        /* Pasos y FAQ */
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -656,7 +651,6 @@
 </head>
 <body>
 
-    <!-- Barra de Navegación -->
     <header class="header">
         <a href="#" class="logo">TeleDoc<span>Chile</span></a>
         <nav>
@@ -670,7 +664,6 @@
         <a href="https://wa.me/56900000000?text=Hola.%20Deseo%20agendar%20una%20teleconsulta%20en%20TeleDocChile." target="_blank" class="btn-reservar-header">Reservar Teleconsulta</a>
     </header>
 
-    <!-- Sección Principal (Hero) -->
     <section class="hero">
         <div class="hero-content">
             <span class="hero-tagline">Medicina Online • Atención Cercana y Accesible</span>
@@ -691,18 +684,15 @@
         </div>
     </section>
 
-    <!-- Sello de Confianza / Convenios -->
     <div class="trust-banner">
         <h3>🛡️ Medicina Digna, Clara y al Alcance de Todos</h3>
         <p>Entregamos boletas de honorarios médicas oficiales para que puedas presentar en tu Isapre o seguro. Precios justos y transparentes para apoyar el presupuesto de tu hogar.</p>
     </div>
 
-    <!-- Directorio de Profesionales -->
     <div id="especialistas" class="section-container">
         <h2 class="section-title">Elige a tu Profesional y Reserva</h2>
         <div class="doctors-grid">
             
-            <!-- Médico 1: Dra. Jennie Guzmán -->
             <div class="doctor-card">
                 <div class="doctor-header">
                     <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=300&auto=format&fit=crop" alt="Dra. Jennie Guzmán" class="doctor-avatar">
@@ -732,7 +722,6 @@
                 </div>
             </div>
 
-            <!-- Médico 2: Dr. Alejandro Morales -->
             <div class="doctor-card">
                 <div class="doctor-header">
                     <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=300&auto=format&fit=crop" alt="Dr. Alejandro Morales" class="doctor-avatar">
@@ -765,7 +754,6 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE OPINIONES Y RESEÑAS VERIFICADAS -->
     <div id="opiniones" class="section-container">
         <h2 class="section-title">Lo que dicen nuestros pacientes</h2>
         <div class="reviews-grid">
@@ -791,7 +779,6 @@
         </div>
     </div>
 
-    <!-- VENTANA EMERGENTE (MODAL) CON PREGUNTAS PREVIAS -->
     <div id="bookingModal" class="modal-overlay">
         <div class="modal-content">
             <h3 class="modal-title">Registro de Paciente</h3>
@@ -824,7 +811,6 @@
         </div>
     </div>
 
-    <!-- Sección de Pasos -->
     <div id="como-funciona" class="section-container" style="margin-top: 0;">
         <h2 class="section-title">¿Cómo funciona la teleconsulta?</h2>
         <div class="steps-grid">
@@ -846,7 +832,6 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE PREGUNTAS FRECUENTES ENRIQUECIDA (FONASA, ISAPRES Y FACILIDADES) -->
     <div id="faq" class="faq-container">
         <h2 class="section-title" style="margin-bottom: 2.5rem;">Preguntas Frecuentes</h2>
         
@@ -866,7 +851,6 @@
         </div>
     </div>
 
-    <!-- PIE DE PÁGINA (FOOTER) INSTITUCIONAL -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-col">
@@ -892,7 +876,6 @@
         </div>
     </footer>
 
-    <!-- Script JavaScript para manejo de reservas, motivo de consulta y WhatsApp -->
     <script>
         const selectedTimes = {
             jennie: null,
