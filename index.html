@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeleDocChile - Telemedicina Cercana y Accesible</title>
+    <title>TeleDocChile - Plataforma de Telemedicina y Salud Familiar</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,25 +15,35 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: var(--fuente-principal); background-color: var(--color-fondo); color: var(--color-texto); line-height: 1.6; }
+        
         .header { background: #FFFFFF; padding: 1.25rem 5%; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 1.6rem; font-weight: 800; color: var(--color-principal); text-decoration: none; letter-spacing: -0.5px; }
         .logo span { color: var(--color-secundario); }
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--color-texto); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--color-secundario); }
         .btn-reservar-header { background-color: var(--color-secundario); color: #FFFFFF; padding: 0.75rem 1.5rem; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,200,151,0.2); }
+        .btn-reservar-header:hover { background-color: #00A37A; }
+
         .hero { background: #FFFFFF; padding: 5rem 5%; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 2.5rem auto; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid #F1F5F9; }
         .hero-content { display: flex; flex-direction: column; gap: 1.5rem; }
         .hero-tagline { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--color-secundario); font-weight: 700; }
         .hero-title { font-size: 3rem; font-weight: 800; color: var(--color-principal); line-height: 1.15; letter-spacing: -1px; }
         .hero-subtitle { font-size: 1.05rem; color: #64748B; line-height: 1.7; }
-        .hero-price-box { background: #F8FAFC; padding: 1.5rem; border-radius: 16px; display: flex; flex-direction: column; gap: 0.4rem; border: 1px solid #E2E8F0; border-left: 4px solid var(--color-secundario); }
-        .hero-price-value { font-size: 2rem; font-weight: 800; color: var(--color-principal); }
-        .btn-whatsapp-main { background-color: var(--color-secundario); color: #FFFFFF; padding: 1.1rem 2rem; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.05rem; text-align: center; display: inline-block; transition: all 0.3s ease; box-shadow: 0 6px 16px rgba(0,200,151,0.25); }
+        
+        .hero-features { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
+        .feature-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.95rem; font-weight: 600; color: var(--color-principal); }
+        .feature-item span { color: var(--color-secundario); font-size: 1.1rem; }
+
+        .btn-cta-main { background-color: var(--color-secundario); color: #FFFFFF; padding: 1.1rem 2rem; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.05rem; text-align: center; display: inline-block; transition: all 0.3s ease; box-shadow: 0 6px 16px rgba(0,200,151,0.25); margin-top: 1rem; }
+        .btn-cta-main:hover { background-color: #00A37A; }
+
         .hero-image-container { width: 100%; display: flex; justify-content: center; }
         .hero-image { width: 100%; max-width: 480px; height: 380px; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.08); object-fit: cover; }
+
         .section-container { max-width: 1200px; margin: 5rem auto; padding: 0 2rem; }
         .section-title { text-align: center; font-size: 2.25rem; color: var(--color-principal); margin-bottom: 3rem; font-weight: 800; letter-spacing: -0.5px; }
+
         .doctors-grid { display: flex; justify-content: center; max-width: 600px; margin: 0 auto; }
         .doctor-card { background: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #F1F5F9; display: flex; flex-direction: column; width: 100%; }
         .doctor-header { display: flex; gap: 1.5rem; padding: 2rem; align-items: center; border-bottom: 1px solid #F1F5F9; position: relative; }
@@ -44,6 +54,7 @@
         .availability-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: #E6F8F3; color: #007A5C; padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 0.3rem; border: 1px solid #B2F2E2; }
         .doctor-body { padding: 2rem; display: flex; flex-direction: column; gap: 1.2rem; flex-grow: 1; }
         .doctor-bio { color: #64748B; font-size: 0.95rem; line-height: 1.6; }
+        
         .booking-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
         .booking-label { font-size: 0.85rem; font-weight: 700; color: var(--color-principal); text-transform: uppercase; letter-spacing: 0.5px; }
         .booking-input { width: 100%; padding: 0.75rem; border: 1px solid #CBD5E1; border-radius: 8px; font-family: var(--fuente-principal); font-size: 0.95rem; background: #FFFFFF; color: var(--color-texto); }
@@ -52,14 +63,22 @@
         .time-slot:hover { border-color: var(--color-secundario); color: var(--color-principal); }
         .time-slot.selected { background-color: var(--color-secundario); color: #FFFFFF; border-color: var(--color-secundario); }
         .btn-confirm-booking { background-color: var(--color-principal); color: #FFFFFF; padding: 0.85rem; border-radius: 10px; text-decoration: none; font-weight: 700; text-align: center; font-size: 0.95rem; transition: background-color 0.3s ease; display: block; margin-top: 0.5rem; cursor: pointer; border: none; }
-        .trust-banner { background: #E6F8F3; border: 1px solid #B2F2E2; border-radius: 16px; padding: 2rem; text-align: center; margin: 4rem auto; max-width: 1200px; }
-        .trust-banner h3 { color: var(--color-principal); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .trust-banner p { color: #007A5C; font-size: 1rem; font-weight: 500; }
-        .footer { background: #002B40; color: #FFFFFF; padding: 4rem 5% 2rem; margin-top: 5rem; }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 3rem; }
-        .footer-col h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-secundario); }
-        .footer-col p, .footer-col a { color: #94A3B8; font-size: 0.95rem; text-decoration: none; display: block; margin-bottom: 0.5rem; }
-        .footer-bottom { max-width: 1200px; margin: 2rem auto 0; text-align: center; color: #64748B; font-size: 0.85rem; }
+        .btn-confirm-booking:hover { background-color: #003652; }
+
+        .trust-banner { background: #E6F8F3; border: 1px solid #B2F2E2; border-radius: 16px; padding: 2.5rem; text-align: center; margin: 4rem auto; max-width: 1200px; }
+        .trust-banner h3 { color: var(--color-principal); font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .trust-banner p { color: #007A5C; font-size: 1.05rem; font-weight: 500; max-width: 800px; margin: 0 auto; }
+
+        /* FOOTER PROFESIONAL Y ROBUSTO */
+        .footer { background: #002B40; color: #FFFFFF; padding: 5rem 5% 2rem; margin-top: 6rem; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4rem; }
+        .footer-col h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--color-secundario); }
+        .footer-col p { color: #94A3B8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .footer-col ul li a { color: #94A3B8; font-size: 0.9rem; text-decoration: none; transition: color 0.2s ease; }
+        .footer-col ul li a:hover { color: #FFFFFF; }
+        .footer-bottom { max-width: 1200px; margin: 2rem auto 0; display: flex; justify-content: space-between; align-items: center; color: #64748B; font-size: 0.85rem; }
+        
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 2000; justify-content: center; align-items: center; padding: 1rem; }
         .modal-content { background: #FFFFFF; padding: 2.5rem; border-radius: 20px; max-width: 480px; width: 100%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; gap: 1.1rem; max-height: 90vh; overflow-y: auto; }
         .modal-title { color: var(--color-principal); font-size: 1.5rem; font-weight: 800; }
@@ -71,6 +90,11 @@
         .modal-buttons { display: flex; gap: 1rem; margin-top: 0.5rem; }
         .btn-modal-cancel { background: #E2E8F0; color: #475569; padding: 0.85rem 1.5rem; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; flex: 1; }
         .btn-modal-submit { background: var(--color-secundario); color: #FFFFFF; padding: 0.85rem 1.5rem; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; flex: 1; }
+        
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -81,6 +105,8 @@
             <ul class="nav-links">
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#especialistas">Profesionales</a></li>
+                <li><a href="#beneficios">Cómo Funciona</a></li>
+                <li><a href="#faq">Preguntas Frecuentes</a></li>
             </ul>
         </nav>
         <a href="#especialistas" class="btn-reservar-header">Reservar Teleconsulta</a>
@@ -88,29 +114,31 @@
 
     <section class="hero">
         <div class="hero-content">
-            <span class="hero-tagline">Medicina Online • Atención Cercana y Accesible</span>
+            <span class="hero-tagline">Medicina Online • Excelencia y Cercanía en el Maule y Chile</span>
             <h1 class="hero-title">Tu salud y la de tu familia, a un clic de distancia.</h1>
-            <p class="hero-subtitle">Selecciona a tu profesional, elige el horario y recibe atención médica de calidad, sin filas ni traslados.</p>
-            <div class="hero-price-box">
-                <span style="font-size: 0.85rem; color: #64748B; font-weight: 600;">VALOR DE LA TELECONSULTA</span>
-                <span class="hero-price-value">$30.000 CLP</span>
-                <span style="font-size: 0.85rem; color: #64748B;">Atención particular / Boleta válida para Isapre</span>
+            <p class="hero-subtitle">Conectamos pacientes con profesionales médicos titulados de forma directa, segura y transparente, sin filas ni traslados innecesarios.</p>
+            
+            <div class="hero-features">
+                <div class="feature-item"><span>✓</span> Atención médica general particular y cercana</div>
+                <div class="feature-item"><span>✓</span> Emisión de boletas de honorarios válidas para Isapres y seguros</div>
+                <div class="feature-item"><span>✓</span> Recetas médicas digitales y entrega directa vía WhatsApp</div>
             </div>
-            <a href="#especialistas" class="btn-whatsapp-main">📅 Seleccionar Médico y Horario</a>
+
+            <a href="#especialistas" class="btn-cta-main">📅 Seleccionar Profesional y Reservar Hora</a>
         </div>
         <div class="hero-image-container">
-            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop" alt="Atención médica" class="hero-image">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop" alt="Atención médica profesional" class="hero-image">
         </div>
     </section>
 
-    <div class="trust-banner">
-        <h3>🛡️ Medicina Digna, Clara y al Alcance de Todos</h3>
-        <p>Entregamos boletas de honorarios médicas oficiales para Isapre o seguros. Precios justos y transparentes para tu hogar.</p>
+    <div class="trust-banner" id="beneficios">
+        <h3>🛡️ Medicina Digna, Transparente y al Alcance de Todos</h3>
+        <p>Garantizamos un modelo de atención eficiente con tarifas justas de $30.000 CLP, eliminando intermediarios innecesarios para entregar un servicio clínico de máxima calidad en cada hogar de Chile.</p>
     </div>
 
     <!-- SECCIÓN PROFESIONALES -->
     <div id="especialistas" class="section-container">
-        <h2 class="section-title">Elige a tu Profesional y Reserva</h2>
+        <h2 class="section-title">Nuestros Profesionales Médicos</h2>
         <div class="doctors-grid">
             <div class="doctor-card">
                 <div class="doctor-header">
@@ -119,11 +147,11 @@
                         <h3>Dra. Jennie Guzmán Tapia</h3>
                         <div class="doctor-spec">Medicina General</div>
                         <div class="doctor-reg">Registro SIS: Verificado</div>
-                        <div class="availability-badge">🟢 Atendiendo hoy</div>
+                        <div class="availability-badge">🟢 Atendiendo Agenda</div>
                     </div>
                 </div>
                 <div class="doctor-body">
-                    <p class="doctor-bio">Atención cercana, integral y con profunda calidez humana enfocada en bienestar familiar.</p>
+                    <p class="doctor-bio">Atención integral, orientada a la prevención, control crónico y bienestar familiar con profunda calidez humana.</p>
                     <div class="booking-box">
                         <span class="booking-label">1. Selecciona el día:</span>
                         <input type="date" id="date-jennie" class="booking-input" value="2026-10-25">
@@ -136,6 +164,20 @@
                         <button onclick="openBookingModal('Dra. Jennie Guzmán Tapia', 'date-jennie', 'jennie')" class="btn-confirm-booking">Confirmar y Reservar Hora</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container" id="faq" style="max-width: 800px; margin-top: 2rem;">
+        <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 2rem;">Preguntas Frecuentes</h2>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="background: #FFFFFF; padding: 1.5rem; border-radius: 12px; border: 1px solid #E2E8F0;">
+                <h4 style="color: var(--color-principal); margin-bottom: 0.5rem; font-weight: 700;">¿Cómo se realiza la videoconsulta?</h4>
+                <p style="color: #64748B; font-size: 0.95rem;">Una vez confirmada tu hora, coordinamos los detalles directamente y te entregamos acceso seguro para conectar en video desde tu computador o teléfono.</p>
+            </div>
+            <div style="background: #FFFFFF; padding: 1.5rem; border-radius: 12px; border: 1px solid #E2E8F0;">
+                <h4 style="color: var(--color-principal); margin-bottom: 0.5rem; font-weight: 700;">¿La boleta sirve para Isapre o Seguros Complementarios?</h4>
+                <p style="color: #64748B; font-size: 0.95rem;">Sí, emitimos boleta de honorarios médica oficial que puedes presentar en tu Isapre o seguro médico para reembolso según tu plan.</p>
             </div>
         </div>
     </div>
@@ -158,7 +200,7 @@
             </div>
             <div class="form-group">
                 <label>Breve motivo de consulta / Síntomas</label>
-                <textarea id="patientReason" class="form-textarea" placeholder="Ej. Control general, fiebre, receta crónica..."></textarea>
+                <textarea id="patientReason" class="form-textarea" placeholder="Ej. Control general, receta crónica..."></textarea>
             </div>
             <div class="modal-buttons">
                 <button type="button" class="btn-modal-cancel" onclick="closeModal()">Cancelar</button>
@@ -167,20 +209,36 @@
         </div>
     </div>
 
+    <!-- FOOTER CORPORATIVO ROBUSTO -->
     <footer class="footer">
-        <div class="footer-content">
+        <div class="footer-grid">
             <div class="footer-col">
                 <h4>TeleDocChile</h4>
-                <p>Plataforma de telemedicina orientada a brindar atención médica de excelencia en Chile.</p>
+                <p>Plataforma nacional de telemedicina orientada a brindar salud accesible, cercana y de alto estándar ético y profesional en Chile.</p>
             </div>
             <div class="footer-col">
-                <h4>Contacto</h4>
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#especialistas">Nuevos Profesionales</a></li>
+                    <li><a href="#beneficios">Cómo Funciona</a></li>
+                    <li><a href="#faq">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Marco Clínico</h4>
+                <p>Atención particular transparente orientada a familias, adultos mayores y regiones con déficit de especialistas.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto Institucional</h4>
                 <p>📍 Linares, Región del Maule, Chile</p>
                 <p>✉️ contacto@teledocchile.cl</p>
+                <p>🕒 Lunes a Sábado</p>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 TeleDocChile.cl - Todos los derechos reservados.</p>
+            <p>Innovación en Salud Digital para Chile</p>
         </div>
     </footer>
 
@@ -226,7 +284,6 @@
                 return;
             }
 
-            // Crear objeto de cita
             const newAppointment = {
                 doctorKey: currentBookingData.doctorKey,
                 doctorName: currentBookingData.doctorName,
@@ -240,7 +297,6 @@
                 exam: "📄 Lab_Sangre_Preventivo.pdf"
             };
 
-            // Guardar dinámicamente en el almacenamiento compartido del navegador
             let existingAppointments = JSON.parse(localStorage.getItem('teledoc_appointments') || '[]');
             existingAppointments.push(newAppointment);
             localStorage.setItem('teledoc_appointments', JSON.stringify(existingAppointments));
